@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -24,8 +26,8 @@ public class Record {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "modified_at")
-    private String modifiedAt;
+    @Column(name = "modified_at", insertable = false, updatable = false)
+    private LocalDateTime modifiedAt;
 
     @OneToOne
     @JoinColumn(name = "flyer_id")
