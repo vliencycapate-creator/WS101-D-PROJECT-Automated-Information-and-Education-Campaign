@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -29,5 +31,5 @@ public class User {
     private String role;
 
     @Column(name = "created_at")
-    private String createdAt;
+    private LocalDateTime createdAt;
 }
