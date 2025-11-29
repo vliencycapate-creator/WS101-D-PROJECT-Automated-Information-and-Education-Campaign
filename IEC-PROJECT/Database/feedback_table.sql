@@ -1,8 +1,0 @@
-USE iec_db_v1;
-CREATE TABLE feedback(
-feedback_id INT AUTO_INCREMENT PRIMARY KEY,
-flyer_id INT,
-email VARCHAR(255),
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (flyer_id) REFERENCES flyers(flyer_id) ON DELETE CASCADE);
-SELECT * FROM feedback;
