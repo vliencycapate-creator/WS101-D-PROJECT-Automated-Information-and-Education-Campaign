@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEC - UEP</title>
+
+    <!-- CSS LINK -->
+    <link rel="stylesheet" href="../css/section/services.css">
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="title-box">
+            <div id="menu-icon" class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logo">IEC</div>
+            <p>
+                Automated <br>
+                Information &amp; <br>
+                Education Campaign
+            </p>
+        </div>
+
+        <!-- NAV LINKS -->
+        <nav class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="./flyers.html">Flyers</a>
+            <a href="./services.html" class="active">Services</a>
+            <a href="./about.html" >About</a>
+        </nav>
+
+        <!-- AUTH BOX -->
+        <div id="auth-box" class="auth-box">
+            <a onclick="openAuth('login-form')">Sign in</a>
+            <a onclick="openAuth('register-form')" class="active">Sign up</a>
+        </div>
+    </header>
+
+    <!-- ---------- ASIDE/SIDEBAR ---------- -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    <aside id="sidebar" class="sidebar">
+        <nav class="sidebar-links">
+            <a href="../index.html">Home</a>
+            <a href="./flyers.html">Flyers</a>
+            <a href="./services.html" class="active">Services</a>
+            <a href="./about.html" >About</a>
+        </nav>
+    </aside>
+
+    <div class="container">
+        <section id="services" class="services-section">
+            <div class="section-box">
+                <div class="our-services">
+                <h3>Our Services</h3>
+                <p>
+                    At <strong>Automated Information &amp; Education Campaign</strong>,
+                    we are commited to building a more sustainable, resilient, and
+                    informed world. Our services are designed to protect nature, prepare
+                    communities, influence policy and educate for lasting environmental
+                    impact.
+                </p>
+                </div>
+
+                <div class="services-box">
+                <div class="service-box">
+                    <div class="img-box">
+                    <div class="img-box1">
+                        <img src="/image/icon/nature.png" alt="Leaf image" />
+                    </div>
+                    </div>
+                    <strong>🌱 Nature Preservation</strong>
+                    <p>
+                    We work to protect, restore, and sustain ecosystems that are vital
+                    to the health of our planet.
+                    </p>
+
+                    <strong>Our Services include:</strong>
+                    <ul>
+                    <li>Biodiversity assessments and habitat restoration</li>
+                    <li>Community-based conservation programs</li>
+                    <li>Protected area management and monitoring</li>
+                    <li>Native tree planting and reforestation campaigns</li>
+                    </ul>
+
+                    <p>
+                    <strong>impact</strong>: Reconnecting people with nature while
+                    safeguarding ecosystems for future generations.
+                    </p>
+                </div>
+
+                <div class="service-box">
+                    <div class="img-box">
+                    <div class="img-box2">
+                        <img src="/image/icon/disaster.png" alt="Disaster image" />
+                    </div>
+                    </div>
+                    <strong>⚠ Disaster Preparedness</strong>
+                    <p>
+                    Building resilient communities through proactive planning and
+                    response training.
+                    </p>
+
+                    <strong>Our Services include:</strong>
+                    <ul>
+                    <li>Risk assessment and hazard mapping</li>
+                    <li>Community disaster drills and training workshops</li>
+                    <li>Emergency preparedness toolkits</li>
+                    <li>Climate-resilient infrastructure guidance</li>
+                    </ul>
+
+                    <p>
+                    <strong>impact</strong>: Minimizing loss and disruption during
+                    natural disaster through informed readiness.
+                    </p>
+                </div>
+
+                <div class="service-box">
+                    <div class="img-box">
+                    <div class="img-box3">
+                        <img src="/image/icon/climate.png" alt="Building image" />
+                    </div>
+                    </div>
+                    <strong>🏛 Climate Policy &amp; Advocacy</strong>
+                    <p>
+                    Shaping effective, science-driven climate policy at local,
+                    national, and international levels.
+                    </p>
+
+                    <p>Our Services include:</p>
+                    <ul>
+                    <li>Climate policy research and advocacy</li>
+                    <li>Stakeholders engagement and public consultations</li>
+                    <li>Legislative briefings and policy writing</li>
+                    <li>Support for climate justice and equity initiatives</li>
+                    </ul>
+
+                    <p>
+                    <strong>impact</strong>: Driving systemic change through informed,
+                    inclusive policymaking.
+                    </p>
+                </div>
+
+                <div class="service-box">
+                    <div class="img-box">
+                    <div class="img-box4">
+                        <img src="/image/icon/guide.png" alt="Guide image" />
+                    </div>
+                    </div>
+                    <strong>📢 Awareness &amp; Education</strong>
+                    <p>
+                    Inspiring action through environmental education and outreach.
+                    </p>
+
+                    <strong>Our Services include:</strong>
+                    <ul>
+                    <li>School and community environmental education programs</li>
+                    <li>Public awareness campaigns and media engagement</li>
+                    <li>Educational materials, toolkits, and curriculum design</li>
+                    <li>Eco-leadership and youth emprovement programs</li>
+                    </ul>
+
+                    <p>
+                    <strong>impact</strong>: Raising consciousness and creating
+                    informed environmental stewards.
+                    </p>
+                </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="auth-container" class="auth-container">
+        <div class="modal">
+            <div class="close-btn" onclick="closeAuth()">
+                <span></span>
+                <span></span>
+            </div>
+
+            <div id="login-form" class="auth-form active">
+                <h2>Login</h2>
+                <form id="loginForm" method="POST">
+                    <label>Email</label>
+                    <input type="email" name="email" id="loginEmail">
+                    <label>Password</label>
+                    <input type="password" name="password" id="loginPassword">
+                    <p id="login-message" class="msg"></p>
+                    <button type="submit" formenctype="multipart/form-data">Login</button>
+                </form>
+
+                <div class="links">
+                    <p>Don't have an account?</p>
+                    <a onclick="switchForm('register-form')">Register</a>
+                </div>
+            </div>
+
+            <div id="register-form" class="auth-form">
+                <h2>Register</h2>
+
+                <form id="registerForm">
+                    <label>Name</label>
+                    <input type="text" id="regName">
+                    <label>Email</label>
+                    <input type="email" id="regEmail">
+                    <label>Password</label>
+                    <input type="password" id="regPassword">
+                    <p id="register-message" class="msg"></p>
+                    <button type="submit">Register</button>
+                </form>
+
+
+                <div class="links">
+                    <p>Already have an account?</p>
+                    <a onclick="switchForm('login-form')">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <img src="../image/uep-logo.png" alt="EUP Logo" />
+            <div class="contact-box">
+                <div class="contact-container">
+                    <h2>Contact Us</h2>
+                    <p><span>📞</span> Uep Main Campus</p>
+                    <p><span>📞</span> +639469536052</p>
+                    <p><span>📞</span> aiecuep@gmail.com</p>
+                </div>
+                <div class="quick-link-container">
+                    <h2>Quick Links</h2>
+                    <a href="#">About Us</a>
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+        <div class="nav-box">
+            <Link to="/" reloadDocument>Home</Link>
+            <Link to="/flyers" reloadDocument>Flyers</Link>
+            <Link to="/services" reloadDocument>Services</Link>
+        </div>
+        <h3>Spreading awareness. Saving nature. Staying prepared.</h3>
+        <div class="copy-right-container">
+            <p>&copy; 2025 Copyright</p>
+            <hr />
+            <p> InfoEduCampaign.com</p>
+            <hr />
+            <p>All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/components/header.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+@import url(../colors.css);
+@import url(../component/header.css);
+@import url(../component/footer.css);
+@import url(../component/sidebar.css);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI";
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.container {
+  width: 100%;
+  padding-top: 70px;
+}
+
+/* -------------------- ABOUT SECTION -------------------- */
+.about-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px 20px;
+}
+.about-container .about-box {
+    width: 90%;
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.about-container .about-box > div {
+    width: 100%;
+}
+
+.about-container .about-box > .about-content {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.about-container .about-box > .about-content h2 {
+    font-family: 'Times New Roman';
+    font-size: 2.2rem;
+    color: var(--text-color);
+}
+
+.about-container .about-box > .about-content p {
+    font-size: .9rem;
+    text-indent: 20px;
+    color: var(--text-color);
+}
+
+.about-container .about-box > .img-box {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.about-container .about-box > .img-box > img {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .about-container .about-box {
+        flex-direction: column-reverse;
+        gap: 0;
+    }
+
+    .about-container .about-box > .img-box {
+        height: 330px;
+    }
+}
+
+@media (max-width: 425px) {
+    .about-container {
+        padding-top: 20px;
+    }
+    
+    .about-container .about-box > .img-box {
+        height: 250px;
+    }
+
+    .about-container .about-box > .about-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .about-container .about-box > .about-content p {
+        font-size: .8rem;
+    }
+}

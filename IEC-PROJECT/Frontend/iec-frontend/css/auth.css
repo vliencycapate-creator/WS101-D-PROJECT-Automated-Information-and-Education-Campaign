@@ -1,0 +1,216 @@
+@import url(/src/styles/colors.css);
+
+/* ============= BACKDROP ============= */
+.auth-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 984;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+/* show state */
+.auth-container.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* hide state */
+.auth-container.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ============= POP ANIMATIONS ============= */
+@keyframes popup {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(25px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes popout {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.7) translateY(25px);
+  }
+}
+
+.auth-container.show .modal {
+  animation: popup 0.35s ease forwards;
+}
+
+.auth-container.hide .modal {
+  animation: popout 0.25s ease forwards;
+}
+
+/* ============= MODAL ============= */
+.auth-container .modal {
+  position: relative;
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background: var(--card-color);
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  padding: 30px 20px;
+  z-index: 985;
+}
+
+.auth-container .modal h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+/* CLOSE BUTTON */
+.auth-container .modal .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.auth-container .modal .close-btn span {
+  display: block;
+  height: 3px;
+  background: red;
+  margin: 5px 0;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+.auth-container .modal .close-btn span:nth-child(1) {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.auth-container .modal .close-btn span:nth-child(2) {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* ============= FORM ============= */
+.auth-container .auth-form {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-container .auth-form.active {
+  display: flex;
+}
+
+.auth-container .auth-form form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.auth-container .auth-form label {
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.auth-container .auth-form input {
+  width: 100%;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  padding: 5px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border 0.3s;
+}
+
+.auth-container .auth-form input:focus{
+  border-color: var(--primary-color);
+}
+
+/* FOR SERVER MESSAGE */
+.auth-container .auth-form form > p {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.auth-container .auth-form button {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  padding: 8px 0;
+  background: var(--primary-color);
+  border: none;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.auth-container .auth-form button:hover {
+  background: #0351a5;
+}
+
+/* LINKS */
+.auth-container .auth-form .links {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.auth-container .auth-form .links p {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.auth-container .auth-form .links a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: blue;
+  cursor: pointer;
+}
+
+.auth-container .auth-form .links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 425px) {
+  .auth-container .modal {
+    width: 340px;
+  }
+
+  .auth-container .modal h2 {
+    font-size: 1.6rem;
+  }
+
+  .auth-container .modal .close-btn {
+    width: 20px;
+  }
+}

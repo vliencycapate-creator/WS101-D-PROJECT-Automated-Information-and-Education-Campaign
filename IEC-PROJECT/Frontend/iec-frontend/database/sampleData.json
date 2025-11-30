@@ -1,0 +1,71 @@
+[
+    {
+        "flyerId" : 1,
+        "category" : "Climate Policy",
+        "title" : "ECOLOGICAL WASTE MANAGEMENT POLICIES",
+        "description" : "Learn how to reduce, reuse, and recycle waste to create a sustainable future. Discover simple steps to minimize your ecological footprint and contribute to a cleaner, healthier environment",
+        "imgUrl" : "../image/flyer-img/waste.png",
+        "createdBy" : "Ralph Serrona Doe",
+        "createdAt" : "2025-11-10"
+    },
+
+    {
+        "flyerId" : 2,
+        "category" : "Guidelines & Awareness",
+        "title" : "FIRE-RELATED INCIDENTS",
+        "description" : "Learn how to prevent fires, create a fire escape plan, and stay safe in case of a fire emergency. Discover tips on fire prevention, evacuation procedures, and what to do in case of a fire-",
+        "imgUrl" : "../image/flyer-img/fire.jpg",
+        "createdBy" : "Francis Balleta",
+        "createdAt" : "2025-02-16"
+    },
+
+    {
+        "flyerId" : 3,
+        "category" : "Disaster Preparedness",
+        "title" : "STORM SURGE",
+        "description" : "Learn about the dangers of storm surge, how to stay safe, and what to do before, during, and after a storm hits. Stay informed, plan ahead, and protect yourself and your loved ones from",
+        "imgUrl" : "../image/flyer-img/storm.png",
+        "createdBy" : "Jhemric Porlage",
+        "createdAt" : "2025-10-14"
+    },
+
+    {
+        "flyerId" : 4,
+        "category" : "Disaster Preparedness",
+        "title" : "EARTHQUAKE",
+        "description" : "Living in an earthquake-prone area like the Philippines, particularly in regions such as Lahug, Central Visayas, underscopes the importance of being prepared. The Philippines",
+        "imgUrl" : "../image/flyer-img/earthequake.jpg",
+        "createdBy" : "Jomar Lacsarom",
+        "createdAt" : "2025-12-31"
+    },
+
+    {
+        "flyerId" : "5",
+        "category" : "Nature Preservation",
+        "title" : "RECONNECT WITH NATURE",
+        "description" : "Nature is our home, but it needs our help. From reducing waste to planting trees, small steps create big change. Together, we can preserve forests, clean oceans, and safeguard wildlife",
+        "imgUrl" : "../image/flyer-img/forest.jpg",
+        "createdBy" : "Vliency Capate",
+        "createdAt" : "2025-08-18"
+    },
+
+    {
+        "flyerId" : "5",
+        "category" : "Nature Preservation",
+        "title" : "RECONNECT WITH NATURE",
+        "description" : "Nature is our home, but it needs our help. From reducing waste to planting trees, small steps create big change. Together, we can preserve forests, clean oceans, and safeguard wildlife",
+        "imgUrl" : "../image/flyer-img/forest.jpg",
+        "createdBy" : "Vliency Capate",
+        "createdAt" : "2025-08-18"
+    },
+    
+    {
+        "flyerId" : "5",
+        "category" : "Nature Preservation",
+        "title" : "RECONNECT WITH NATURE",
+        "description" : "Nature is our home, but it needs our help. From reducing waste to planting trees, small steps create big change. Together, we can preserve forests, clean oceans, and safeguard wildlife",
+        "imgUrl" : "../image/flyer-img/forest.jpg",
+        "createdBy" : "Vliency Capate",
+        "createdAt" : "2025-08-18"
+    } 
+]

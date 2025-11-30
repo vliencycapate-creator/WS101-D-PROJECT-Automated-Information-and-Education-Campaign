@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEC - UEP</title>
+
+    <!-- CSS LINK -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="title-box">
+            <div id="menu-icon" class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logo">IEC</div>
+            <p>
+                Automated <br>
+                Information &amp; <br>
+                Education Campaign
+            </p>
+        </div>
+
+        <!-- NAV LINKS -->
+        <nav class="nav-links">
+            <a href="./index.html" class="active">Home</a>
+            <a href="./section/flyers.html">Flyers</a>
+            <a href="./section/services.html">Services</a>
+            <a href="./section/about.html">About</a>
+        </nav>
+
+        <!-- AUTH BOX -->
+        <div id="auth-box" class="auth-box">
+            <a onclick="openAuth('login-form')">Sign in</a>
+            <a onclick="openAuth('register-form')" class="active">Sign up</a>
+        </div>
+    </header>
+
+    <!-- ---------- ASIDE/SIDEBAR ---------- -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    <aside id="sidebar" class="sidebar">
+        <nav class="sidebar-links">
+            <a href="./index.html" class="active">Home</a>
+            <a href="./section/flyers.html">Flyers</a>
+            <a href="./section/services.html">Services</a>
+            <a href="./section/about.html">About</a>
+        </nav>
+    </aside>
+
+    <div class='home-container'>
+        <section id="home">
+            <div class="section-box">
+                <div class="img-box">
+                    <div class="img-overlay"></div>
+                    <img src="/image/uep-campus.jpg" alt="UEP Campus" />
+                    <p class='glow'>"Nature First. Safety Always. <br /> Awareness for All"</p>
+                </div>
+
+                <div class="wwc-box">
+                    <h2>What We Cover</h2>
+                    <div class="icon-box">
+                        <div class="box">
+                            <img src="/image/icon/nature.png" alt="nature" />
+                            <strong>Nature <br /> Preservation</strong>
+                            <p>Protecting <br /> Biodiversity</p>
+                        </div>
+                        <div class="box">
+                            <img src="/image/icon/disaster.png" alt="disaster" />
+                            <strong>Disaster <br /> Preparedness</strong>
+                            <p>Stay Ready <br /> Stay Safe</p>
+                        </div>
+                        <div class="box">
+                            <img src="/image/icon/climate.png" alt="climate" />
+                            <strong>Climate <br /> Policy</strong>
+                            <p>Knowledge that <br /> drive changes</p>
+                        </div>
+                        <div class="box">
+                            <img src="/image/icon/guide.png" alt="guide" />
+                            <strong>Awareness &amp; <br /> Education</strong>
+                            <p>Resources <br /> that Empowers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-box">
+                <div class="who-what-why-box">
+                    <h2>"Empowering Change Through Knowledge"</h2>
+                    <div class="www-box">
+                        <div class="box">
+                            <strong>Who We Are</strong>
+                            <p>
+                                We are a passionate group of students, educators, and advocates dedicated to spreading
+                                awareness about environmental conservation., climate change, and disaster preparedness.
+                                Our platform serves as an educational hub for those who care about protecting both
+                                people and nature.
+                            </p>
+                        </div>
+                        <div class="box">
+                            <strong>What We Do</strong>
+                            <p>
+                                We create and share informative flyers, practical guidelines, and action plans that help
+                                individuals and communicaties stay informed and proactive. From nature preservation tips
+                                to emergency readiness checklists everything we offer is focused on empowerment through
+                                knowledge.
+                            </p>
+                        </div>
+                        <div class="box">
+                            <strong>Why It Matters</strong>
+                            <p>
+                                In a world facing increasing environmental challenges and unpredictable, awareness and
+                                education are more important than ever. Our mission is to turn information into action
+                                building a safer, more sustainable future, one step at a time.
+                            </p>
+                        </div>
+                    </div>
+                    <h3>
+                        "Awareness is the first step toward change and when we understand nature, we protect it. When we
+                        prepare for disaster, we save lives.Our mission begins with knowledge, and ends in action."
+                    </h3>
+                </div>
+
+                <div class="featured-box">
+                    <img src="/image/tree-planting.jpg" alt="tree-planting" />
+                    <div class="feature-msg">
+                        <div>
+                            <h2>Protect Our Forest</h2>
+                            <p>
+                                Nature is our home, but it needs our help. From reducing waste to planting trees, small
+                                steps create big change. Together, we can preserve forests, clean oceans, and safeguard
+                                wildlife for future generations.
+                            </p>
+                        </div>
+                        <a href="#">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="auth-container" class="auth-container">
+        <div class="modal">
+            <div class="close-btn" onclick="closeAuth()">
+                <span></span>
+                <span></span>
+            </div>
+
+            <div id="login-form" class="auth-form active">
+                <h2>Login</h2>
+                <form id="loginForm" method="POST" onsubmit="event.preventDefault(); loginUser(this)">
+                    <label>Email</label>
+                    <input type="email" name="email" id="loginEmail">
+                    <label>Password</label>
+                    <input type="password" name="password" id="loginPassword">
+                    <p id="login-message" class="msg"></p>
+                    <button type="submit" formenctype="multipart/form-data">Login</button>
+                </form>
+
+                <div class="links">
+                    <p>Don't have an account?</p>
+                    <a onclick="switchForm('register-form')">Register</a>
+                </div>
+            </div>
+
+            <div id="register-form" class="auth-form">
+                <h2>Register</h2>
+
+                <form id="registerForm">
+                    <label>Name</label>
+                    <input type="text" id="regName">
+                    <label>Email</label>
+                    <input type="email" id="regEmail">
+                    <label>Password</label>
+                    <input type="password" id="regPassword">
+                    <p id="register-message" class="msg"></p>
+                    <button type="submit">Register</button>
+                </form>
+
+
+                <div class="links">
+                    <p>Already have an account?</p>
+                    <a onclick="switchForm('login-form')">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <img src="../image/uep-logo.png" alt="EUP Logo" />
+            <div class="contact-box">
+                <div class="contact-container">
+                    <h2>Contact Us</h2>
+                    <p><span>📞</span> Uep Main Campus</p>
+                    <p><span>📞</span> +639469536052</p>
+                    <p><span>📞</span> aiecuep@gmail.com</p>
+                </div>
+                <div class="quick-link-container">
+                    <h2>Quick Links</h2>
+                    <a href="#">About Us</a>
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+        <div class="nav-box">
+            <Link to="/" reloadDocument>Home</Link>
+            <Link to="/flyers" reloadDocument>Flyers</Link>
+            <Link to="/services" reloadDocument>Services</Link>
+        </div>
+        <h3>Spreading awareness. Saving nature. Staying prepared.</h3>
+        <div class="copy-right-container">
+            <p>&copy; 2025 Copyright</p>
+            <hr />
+            <p> InfoEduCampaign.com</p>
+            <hr />
+            <p>All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/components/header.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

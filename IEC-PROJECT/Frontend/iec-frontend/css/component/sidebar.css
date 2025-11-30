@@ -1,0 +1,56 @@
+@import url(../colors.css);
+
+/* ---------- ASIDE/SIDEBAR ---------- */
+.sidebar-overlay {
+  position: fixed;
+  top: 70px;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 970;
+}
+
+.sidebar {
+  position: fixed;
+  top: 70px;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: var(--bg-color);
+  padding: 20px 10px;
+  border-top: 1px solid #333;
+  transition: 0.3s ease;
+  z-index: 971;
+}
+
+/* ----- NAVIGATION ----- */
+.sidebar > .sidebar-links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar > .sidebar-links > a {
+  text-decoration: none;
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted-color);
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.sidebar > .sidebar-links > a:hover {
+  background: rgba(211, 211, 211, 0.8);
+  color: var(--sec-text-color);
+}
+
+.sidebar > .sidebar-links > a.active {
+  background: var(--primary-color);
+  color: #fff;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>IEC | Admin</title>
+    <link rel="stylesheet" href="../css/admin/dashboard.css">
+    <link rel="stylesheet" href="../css/section/flyers.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="title-box">
+            <!-- <div id="menu-icon" class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div> -->
+            <div class="logo">IEC</div>
+            <p>
+                Automated <br>
+                Information &amp; <br>
+                Education Campaign
+            </p>
+        </div>
+
+        <!-- NAV LINKS -->
+        <nav class="nav-links">
+            <a href="./dashboard.html">Dashboard</a>
+            <a href="./flyer-management.html" class="active">Flyers</a>
+            <a href="./pending-management.html">Pending Flyers</a>
+            <a href="./declined-flyers.html">Declined Flyers</a>
+            <a href="./user-management.html">Users</a>
+            <a href="./feedback-management.html">Feedbacks</a>
+        </nav>
+
+        <!-- AUTH BOX -->
+        <div id="auth-box" class="auth-box">
+            <a id="logoutButton" class="active">Logout</a>
+        </div>
+    </header>
+
+    <!-- ---------- ASIDE/SIDEBAR ---------- -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    <aside id="sidebar" class="sidebar">
+        <nav class="sidebar-links">
+            <a href="./dashboard.html">Dashboard</a>
+            <a href="./flyer-management.html" class="active">Flyers</a>
+            <a href="./pending-management.html">Pending Flyers</a>
+            <a href="./declined-flyers.html">Declined Flyers</a>
+            <a href="./user-management.html">Users</a>
+            <a href="./feedback-management.html">Feedbacks</a>
+        </nav>
+    </aside>
+
+    <div class="container">
+        <section class="dashboard">
+            <!-- <h2>Approved Flyers</h2>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Flyer</th>
+                            <th>Faculty</th>
+                            <th>Date Approved</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="approvedFlyerTable">
+                        <tr>
+                            <td colspan="4">No approved flyers yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> -->
+
+            <div class="flyer-navbar-container">
+                <h2>Approved Flyers</h2>
+
+                <div class="search-bar-container">
+                    <select name="category" id="category">
+                        <option value="all">All</option>
+                        <option value="nature preservation">Nature Preservation</option>
+                        <option value="disaster">Disaster Preparedness</option>
+                        <option value="climate policy">Climate Policy</option>
+                        <option value="awareness and education">Awareness &amp; Education</option>
+                    </select>
+                    <input type="text" name="search" id="search-bar" placeholder="Search">
+                    <button id="search-btn">Search</button>
+                </div>
+            </div>
+            <div class="section-box">
+                <div id="flyer-list" class="flyer-list"></div>
+            </div>
+        </section>
+    </div>
+
+
+    <script src="../js/admin/admin.js"></script>
+</body>
+
+</html>

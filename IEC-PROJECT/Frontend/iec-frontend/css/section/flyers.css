@@ -1,0 +1,247 @@
+@import url(../colors.css);
+@import url(../component/header.css);
+@import url(../component/footer.css);
+@import url(../component/sidebar.css);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI";
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.container {
+  width: 100%;
+  padding-top: 130px;
+}
+
+.container section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.container section .section-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 40px;
+}
+
+/* FLYER SEARCH */
+.container section .flyer-navbar-container {
+  position: fixed;
+  top: 70px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px 40px;
+  background: var(--bg-color);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  z-index: 900;
+}
+
+.container section .flyer-navbar-container h2 {
+  text-wrap: nowrap;
+}
+
+.container section .flyer-navbar-container .search-bar-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.container section .flyer-navbar-container .search-bar-container select,
+.container section .flyer-navbar-container .search-bar-container input {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.09);
+}
+
+.container section .flyer-navbar-container .search-bar-container button {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 10px;
+  border: none;
+  background: var(--primary-color);
+  cursor: pointer;
+}
+
+.container section .flyer-navbar-container .search-bar-container button:hover {
+  background: var(--accent-color);
+}
+
+/* ----- FLYER LIST ----- */
+.container section .section-box .flyer-list {
+  width: 99.6%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 10px;
+}
+
+.flyer-list .flyerCard {
+  width: 295px;
+  max-height: 440px;
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.flyer-list .flyerCard .img-box {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.flyer-list .flyerCard .img-box img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.flyer-list .flyerCard .img-box img:hover {
+  transform: scale(1.1);
+}
+
+.flyer-list .flyerCard .category {
+  font-size: 0.9rem;
+  margin: 5px 10px;
+}
+
+.flyer-list .flyerCard .flyer-content {
+  width: 100%;
+  height: 120px;
+  padding: 10px;
+}
+
+.flyer-list .flyerCard .flyer-content h3 {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.flyer-list .flyerCard .flyer-content p {
+  /* max-height: 35px;
+    font-size: .9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical; */
+  display: -webkit-box;
+  font-size: 0.9rem;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.flyer-list .flyerCard .flyer-btn {
+  width: fit-content;
+  font-size: 0.8rem;
+  color: #fff;
+  background: var(--primary-color);
+  padding: 5px 8px;
+  border: none;
+  border-radius: 6px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.flyer-list .flyerCard .flyer-btn:hover {
+  background-color: var(--accent-color);
+}
+
+.flyer-list .flyerCard .author-container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 0px 10px 10px 10px;
+  overflow: hidden;
+}
+
+.flyer-list .flyerCard .author-container p {
+  font-size: 0.8rem;
+  color: var(--sec-text-color);
+  text-wrap: nowrap;
+}
+
+.flyer-list .flyerCard .author-container p .createdBy,
+.flyer-list .flyerCard .author-container p .createdAt {
+  font-size: 0.9rem;
+  color: var(--sec-text-color);
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 768px) {
+  .container section .flyer-navbar-container {
+    justify-content: flex-end;
+  }
+
+  .container section .flyer-navbar-container h2 {
+    display: none;
+  }
+
+  .container section .flyer-navbar-container .search-bar-container select,
+  .container section .flyer-navbar-container .search-bar-container input {
+    padding: 5px 8px;
+  }
+
+  .container section .flyer-navbar-container .search-bar-container button {
+    padding: 5px 12px;
+  }
+
+  .container section .section-box .flyer-list {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container section .flyer-navbar-container {
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  .container section .flyer-navbar-container .search-bar-container select,
+  .container section .flyer-navbar-container .search-bar-container input {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  .container section .flyer-navbar-container .search-bar-container button {
+    font-size: 0.8rem;
+  }
+
+  .container section .section-box .flyer-list {
+    width: 90%;
+    gap: 20px;
+  }
+}
