@@ -8,6 +8,6 @@ CREATE TABLE flyers(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     flyer_record_id BIGINT,
     FOREIGN KEY (created_by) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (flyer_record_id) REFERENCES flyer_records(flyer_record_id) ON DELETE CASCADE
+    FOREIGN KEY (flyer_record_id) REFERENCES flyer_records(flyer_record_id)
 );
 
