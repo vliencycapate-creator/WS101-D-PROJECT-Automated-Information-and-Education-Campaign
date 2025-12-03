@@ -1,11 +1,8 @@
-package com.example.backend_gradle.iec_server.helpers.responses;
+package com.example.backend_gradle.iec_server.dtos.other;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
 
 @Data
 @AllArgsConstructor
