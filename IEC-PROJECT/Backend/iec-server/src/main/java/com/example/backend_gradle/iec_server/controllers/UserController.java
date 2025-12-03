@@ -5,6 +5,7 @@ import com.example.backend_gradle.iec_server.dtos.user.RegistrationRequest;
 import com.example.backend_gradle.iec_server.dtos.user.UserDto;
 import com.example.backend_gradle.iec_server.utils.ValidationHelper;
 import com.example.backend_gradle.iec_server.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,16 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/iec-server/api/v1")
+@AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
     private final ValidationHelper validationHelper;
-
-    @Autowired
-    public UserController(ValidationHelper validationHelper, UserService userService) {
-        this.validationHelper = validationHelper;
-        this.userService = userService;
-    }
 
     @PostMapping("/auth/register")
     public ResponseEntity<?> registerUser(@ModelAttribute RegistrationRequest registrationRequest) {
