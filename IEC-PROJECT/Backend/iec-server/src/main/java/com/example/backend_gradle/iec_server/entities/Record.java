@@ -18,9 +18,12 @@ public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "flyer_record_id")
-    private int id;
+    private Long id;
 
-    @Column(name = "status")
+    @Column(name = "flyer_id")
+    private long flyer_id;
+
+    @Column(name = "status", insertable = false)
     private String status;
 
     @Column(name = "email")
@@ -29,9 +32,9 @@ public class Record {
     @Column(name = "modified_at", insertable = false, updatable = false)
     private LocalDateTime modifiedAt;
 
-    @OneToOne
-    @JoinColumn(name = "flyer_id")
+    @OneToOne(mappedBy = "record", fetch = FetchType.EAGER)
     @ToString.Exclude
     @JsonIgnore
     private Flyer flyer;
+
 }
