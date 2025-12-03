@@ -19,7 +19,7 @@ public class Flyer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "flyer_id")
-    private int id;
+    private long id;
 
     @Column(name = "title")
     private String title;
@@ -31,7 +31,7 @@ public class Flyer {
     private String category;
 
     @Column(name = "created_by")
-    private int createdBy;
+    private long createdBy;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -43,7 +43,8 @@ public class Flyer {
     @ToString.Exclude
     private List<Image> images = new ArrayList<>();
 
-    @OneToOne(mappedBy = "flyer")
+    @OneToOne
+    @JoinColumn(name = "flyer_record_id")
     @ToString.Exclude
     private Record record;
 }
