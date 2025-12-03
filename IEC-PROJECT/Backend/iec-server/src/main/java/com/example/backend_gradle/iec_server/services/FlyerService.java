@@ -1,86 +1,114 @@
 package com.example.backend_gradle.iec_server.services;
 
+import com.example.backend_gradle.iec_server.dtos.flyer.FlyerImageRequest;
 import com.example.backend_gradle.iec_server.dtos.flyer.FlyerRequest;
+import com.example.backend_gradle.iec_server.dtos.user.UserDto;
 import com.example.backend_gradle.iec_server.entities.Flyer;
-import com.example.backend_gradle.iec_server.exceptions.ApiException;
-import com.example.backend_gradle.iec_server.helpers.handlers.ImageUploader;
-import com.example.backend_gradle.iec_server.helpers.responses.ResponseBuilder;
+import com.example.backend_gradle.iec_server.utils.ResponseBuilder;
+import com.example.backend_gradle.iec_server.utils.ApiAssert;
 import com.example.backend_gradle.iec_server.mappers.FlyerMapper;
-import com.example.backend_gradle.iec_server.mappers.ImageMapper;
 import com.example.backend_gradle.iec_server.repositories.FlyerJpaRepository;
-import com.example.backend_gradle.iec_server.repositories.ImageJpaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class FlyerService {
+
     private final FlyerJpaRepository flyerRepo;
-    private final ImageJpaRepository imageRepo;
     private final UserService userService;
     private final FlyerMapper flyerMapper;
-    private final ImageMapper imageMapper;
-    private final ImageUploader imageUploader;
+    private final ImageService imageService;
+    private final RecordService recordService;
 
-    @Autowired
-    public FlyerService(
-            ImageUploader imageUploader,
-            ImageMapper imageMapper,
-            FlyerMapper flyerMapper,
-            UserService userService,
-            ImageJpaRepository imageRepo,
-            FlyerJpaRepository flyerRepo
-    ) {
-        this.imageUploader = imageUploader;
-        this.imageMapper = imageMapper;
-        this.flyerMapper = flyerMapper;
-        this.userService = userService;
-        this.imageRepo = imageRepo;
-        this.flyerRepo = flyerRepo;
-    }
+    public ResponseEntity<?> getAllFlyers(UserDto userDto, String category, String search) {
+        List<Flyer> flyers;
 
-    public ResponseEntity<?> getAllFlyers() {
-        var flyers = this.flyerRepo.findAll();
+        if (userDto != null && userDto.getRoles().contains("admin")) {
+            flyers = this.flyerRepo.findAll(category, search);
+        } else {
+            flyers = this.flyerRepo.findAllApproved(category, search);
+        }
+
+        ApiAssert.notFoundIf(flyers.isEmpty(), "No flyers found");
         var flyersDto = flyers.stream()
                 .map(flyer -> {
                     var flyerDto = flyerMapper.toDto(flyer);
-                    flyerDto.setCreatedBy(userService.getUserById(flyer.getCreatedBy()).getUsername());
+                    flyerDto.setCreatedBy(this.userService.getUserById(flyer.getCreatedBy()).getUsername());
                     return flyerDto;
                 })
                 .toList();
         return ResponseBuilder.success("Flyers fetch successful", flyersDto);
     }
 
-    public ResponseEntity<?> getFlyerById(int id) {
-        var flyer = this.flyerRepo.findById(id).orElseThrow(() -> new ApiException("No Flyer found with id: " + id, HttpStatus.NOT_FOUND));
+    public ResponseEntity<?> getFlyerById(Long id, UserDto userDto) {
+        Flyer flyer;
+
+        if (userDto != null && userDto.getRoles().contains("admin")) {
+            flyer = this.flyerRepo.findById(id).orElse(null);
+        } else {
+            flyer = this.flyerRepo.findApprovedById(id).orElse(null);
+        }
+
+        ApiAssert.notFoundIf(flyer == null, "Flyer not found with id: " + id);
         var flyerDto = flyerMapper.toDto(flyer);
-        flyerDto.setCreatedBy(userService.getUserById(flyer.getCreatedBy()).getUsername());
+        flyerDto.setCreatedBy(this.userService.getUserById(flyer.getCreatedBy()).getUsername());
         return ResponseBuilder.success("Flyer fetch successful", flyer);
     }
 
-    public ResponseEntity<?> postFlyer(FlyerRequest flyerRequest) throws IOException {
-        Flyer flyer = flyerMapper.toEntity(flyerRequest);
+    @Transactional
+    public ResponseEntity<?> postFlyer(FlyerRequest flyerRequest, FlyerImageRequest flyerImageRequest, UserDto user) {
+        var flyer = this.flyerMapper.toEntity(flyerRequest);
+        flyer.setCreatedBy(this.userService.getUserById(user.getId()).getId());
         var savedFlyer = this.flyerRepo.save(flyer);
-        var images = this.imageUploader.uploadImage(savedFlyer.getId(), flyerRequest.getImages())
-                .stream()
-                .map(uploadedImage -> {
-                    var image = this.imageMapper.toEntity(uploadedImage);
-                    image.setFlyer(savedFlyer);
-                    return image;
-                })
-                .toList();
-        this.imageRepo.saveAll(images);
+        var record = this.recordService.postRecord(savedFlyer.getId(), user.getEmail());
+        savedFlyer.setRecord(record);
+        this.flyerRepo.save(savedFlyer);
+        this.imageService.postImages(savedFlyer, flyerImageRequest.getImages());
         return ResponseBuilder.created("Flyer created successful");
     }
 
-    public ResponseEntity<?> deleteFlyerById(int id) {
-        var flyer = this.flyerRepo.findById(id).orElseThrow(() -> new ApiException("No Flyer found with id: " + id, HttpStatus.NOT_FOUND));
-        this.flyerRepo.deleteById(flyer.getId());
+    @Transactional
+    public ResponseEntity<?> deleteFlyerById(long id, UserDto userDto) {
+        var flyer = this.flyerRepo.findById(id).orElse(null);
+        ApiAssert.notFoundIf(flyer == null, "Flyer not found with id: " + id);
+        ApiAssert.forbiddenIf(userDto.getId() != flyer.getCreatedBy(), "You do not own this flyer");
+        this.recordService.updateRecordByFlyerId(flyer.getId(), null, "deleted");
+        this.imageService.deleteUploadedImages(flyer);
+        this.flyerRepo.delete(flyer);
         return ResponseBuilder.success("Flyer deleted successful", null);
     }
 
+    @Transactional
+    public ResponseEntity<?> updateFlyerById(long id, FlyerRequest flyerRequest, FlyerImageRequest flyerImageRequest, UserDto userDto) {
+        var flyer = this.flyerRepo.findById(id).orElse(null);
+        ApiAssert.notFoundIf(flyer == null, "Flyer not found with id: " + id);
+        ApiAssert.forbiddenIf(userDto.getId() != flyer.getCreatedBy(), "You do not own this flyer");
+        flyer.setTitle(flyerRequest.getTitle());
+        flyer.setDescription(flyerRequest.getDescription());
+        flyer.setCategory(flyerRequest.getCategory());
+
+        if (flyerImageRequest.getImages() != null) {
+            this.imageService.postImages(flyer, flyerImageRequest.getImages());
+        }
+
+        if (flyerImageRequest.getImagesToDel() != null) {
+            this.imageService.deleteImagesFromListId(flyer, flyerImageRequest.getImagesToDel());
+        }
+
+        this.recordService.updateRecordByFlyerId(flyer.getId(), flyer, "pending");
+        return ResponseBuilder.success("Flyer updated successful", null);
+    }
+
+    public ResponseEntity<?> updateFlyerStatusById(long id, String status) {
+        var flyer = this.flyerRepo.findById(id).orElse(null);
+        ApiAssert.notFoundIf(flyer == null, "Flyer not found with id: " + id);
+        this.recordService.updateRecordByFlyerId(flyer.getId(), flyer, status);
+        return ResponseBuilder.success("Flyer " + status + " successful", null);
+    }
 
 }
