@@ -1,4 +1,4 @@
-package com.example.backend_gradle.iec_server.helpers.responses;
+package com.example.backend_gradle.iec_server.dtos.other;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
