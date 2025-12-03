@@ -1,4 +1,4 @@
-package com.example.backend_gradle.iec_server.helpers.utils;
+package com.example.backend_gradle.iec_server.utils;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
@@ -27,5 +27,6 @@ public class ValidationHelper {
         }
         ApiAssert.badRequestIf(!errors.isEmpty(), "Invalid request fields", errors);
     }
+
 }
 
