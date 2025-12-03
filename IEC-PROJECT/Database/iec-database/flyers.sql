@@ -3,7 +3,7 @@ CREATE TABLE flyers(
     title VARCHAR(100) NOT NULL,
     description MEDIUMTEXT NOT NULL,
     category VARCHAR(100) NOT NULL,
-    created_by BIGINT NOT NULL,
+    created_by BIGINT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     flyer_record_id BIGINT,
