@@ -1,5 +1,6 @@
 package com.example.backend_gradle.iec_server.exceptions;
 
+import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,7 +13,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApiException.class)
-    public ResponseEntity<Map<String, Object>> handleApiException(ApiException ex) {
+    public ResponseEntity<@NonNull  Map<String, Object>> handleApiException(ApiException ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("status", ex.getStatus().value());
         body.put("error", ex.getStatus().getReasonPhrase());
@@ -27,7 +28,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, Object>> handleOtherExceptions(Exception ex) {
+    public ResponseEntity<@NonNull Map<String, Object>> handleOtherExceptions(Exception ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("status", 500);
         body.put("error", "Internal Server Error");
