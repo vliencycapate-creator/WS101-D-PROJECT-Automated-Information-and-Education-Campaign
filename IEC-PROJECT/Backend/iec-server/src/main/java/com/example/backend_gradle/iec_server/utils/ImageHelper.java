@@ -1,7 +1,10 @@
-package com.example.backend_gradle.iec_server.helpers.handlers;
+package com.example.backend_gradle.iec_server.helpers.utils;
 
 
 import com.example.backend_gradle.iec_server.dtos.other.UploadedImage;
+import com.example.backend_gradle.iec_server.entities.Image;
+import com.example.backend_gradle.iec_server.exceptions.ApiException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ImageUploader {
+public class ImageHelper {
     private static final Path baseFolder = Paths.get("").toAbsolutePath().resolve("IEC-PROJECT/Backend/iec-server/uploads");
 
     public List<UploadedImage> uploadImage(long id, MultipartFile[] files) throws IOException {
@@ -42,4 +45,17 @@ public class ImageUploader {
         }
         return uploadedImages;
     }
+
+    public void removeImages(List<Image> images) throws IOException {
+        images.forEach(image -> {
+            try {
+                String pathName = image.getImagePath().substring(8);
+                Files.deleteIfExists(baseFolder.resolve(pathName));
+                IO.println(baseFolder.resolve(pathName).toString());
+            } catch (Exception e) {
+                throw new ApiException(e.getMessage(), HttpStatus.CONFLICT);
+            }
+        });
+    }
+
 }

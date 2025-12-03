@@ -1,10 +1,8 @@
-package com.example.backend_gradle.iec_server.helpers.validators;
+package com.example.backend_gradle.iec_server.helpers.utils;
 
-import com.example.backend_gradle.iec_server.exceptions.ApiException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -27,8 +25,7 @@ public class ValidationHelper {
             String message = v.getMessage();
             errors.put(field, message);
         }
-        if(!errors.isEmpty()) throw new ApiException("Invalid field", errors, HttpStatus.BAD_REQUEST);
-        IO.println("Nothing happens");
+        ApiAssert.badRequestIf(!errors.isEmpty(), "Invalid request fields", errors);
     }
 }
 
