@@ -8,6 +8,6 @@ class IecServerApplicationTests {
 
 	@Test
 	void contextLoads() {
-	}
 
+	}
 }
