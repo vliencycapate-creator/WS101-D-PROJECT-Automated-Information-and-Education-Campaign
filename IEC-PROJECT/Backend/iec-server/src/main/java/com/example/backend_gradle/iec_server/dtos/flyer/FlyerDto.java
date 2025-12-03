@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FlyerDto {
-    private int id;
+    private long id;
     private String title;
     private String description;
     private String category;
