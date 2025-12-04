@@ -25,11 +25,12 @@ public class FlyerService {
     private final ImageService imageService;
     private final RecordService recordService;
 
-    public ResponseEntity<?> getAllFlyers(UserDto userDto, String category, String search) {
+    public ResponseEntity<?> getAllFlyers(UserDto userDto, String category, String search, String status) {
         List<Flyer> flyers;
 
         if (userDto != null && userDto.getRoles().contains("admin")) {
-            flyers = this.flyerRepo.findAll(category, search);
+            flyers = this.flyerRepo.findAll(category, search, status);
+            IO.println(status);
         } else {
             flyers = this.flyerRepo.findAllApproved(category, search);
         }

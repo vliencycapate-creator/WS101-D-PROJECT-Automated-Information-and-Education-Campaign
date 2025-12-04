@@ -20,8 +20,10 @@ public interface FlyerJpaRepository extends JpaRepository<@NonNull Flyer, @NonNu
     @Query(value = """
     SELECT f.* FROM flyers f
     JOIN users u ON u.user_id = f.created_by
+    JOIN flyer_records fr ON fr.flyer_id = f.flyer_id
     WHERE 1 = 1
     AND (:category IS NULL OR f.category = :category)
+    AND (:status IS NULL OR fr.status = :status)
     AND (
         :search IS NULL OR
     	(
@@ -38,7 +40,7 @@ public interface FlyerJpaRepository extends JpaRepository<@NonNull Flyer, @NonNu
         )
     );
     """, nativeQuery = true)
-    List<Flyer> findAll(@Param("category") String category, @Param("search") String search);
+    List<Flyer> findAll(@Param("category") String category, @Param("search") String search, @Param("status") String status);
 
     @Query(value = """
     SELECT f.* FROM flyers f

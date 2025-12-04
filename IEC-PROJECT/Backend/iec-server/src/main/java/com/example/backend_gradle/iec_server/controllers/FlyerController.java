@@ -23,8 +23,9 @@ public class FlyerController {
     public ResponseEntity<?> getFlyers(
             @AuthenticationPrincipal UserDto user,
             @RequestParam(required = false, name = "category") String category,
-            @RequestParam(required = false, name = "search") String search) {
-        return this.flyerService.getAllFlyers(user, category, search);
+            @RequestParam(required = false, name = "search") String search,
+            @RequestParam(required = false, name = "status") String status) {
+        return this.flyerService.getAllFlyers(user, category, search, status);
     }
 
     @GetMapping("/flyers/{id}")
