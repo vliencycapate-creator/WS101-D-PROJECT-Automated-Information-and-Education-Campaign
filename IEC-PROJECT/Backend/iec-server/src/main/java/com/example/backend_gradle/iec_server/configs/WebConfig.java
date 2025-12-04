@@ -24,7 +24,7 @@ public class WebConfig implements WebMvcConfigurer {
             }
         }
 
-        registry.addResourceHandler("/images/**")
+        registry.addResourceHandler("iec-server/images/**")
                 .addResourceLocations("file:" + baseFolder + "/");
     }
 

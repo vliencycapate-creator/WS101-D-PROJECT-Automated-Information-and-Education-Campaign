@@ -42,7 +42,7 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/iec-server/api/v1/flyers").permitAll()
                         .requestMatchers(HttpMethod.GET, "/iec-server/api/v1/flyers/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/images/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/iec-server/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/iec-server/api/v1/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/iec-server/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/iec-server/api/v1/**").hasAnyRole("ADMIN", "FACULTY")
