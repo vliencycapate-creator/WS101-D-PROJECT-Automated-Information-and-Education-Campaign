@@ -14,23 +14,23 @@ public class RecordService {
 
     private final RecordJpaRepository recordRepo;
 
-    public Record getRecordByFlyerId(long id) {
-        var record = this.recordRepo.findByFlyerId(id).orElse(null);
+    public Record getRecordById(long id) {
+        var record = this.recordRepo.findById(id).orElse(null);
         ApiAssert.notFoundIf(record == null, "Record not found with id:" + id);
         return record;
     }
 
     @Transactional
-    public Record postRecord(long id, String email) {
+    public Record postRecord(Flyer flyer, String email) {
         Record record = new Record();
-        record.setFlyer_id(id);
+        record.setFlyer_id(flyer.getId());
         record.setEmail(email);
         return this.recordRepo.save(record);
     }
 
     @Transactional
-    public void updateRecordByFlyerId(long id, Flyer flyer, String status) {
-        var record = this.getRecordByFlyerId(id);
+    public void updateRecordByFlyerId(Flyer flyer, String status) {
+        var record = this.getRecordById(flyer.getRecord().getId());
         record.setFlyer(flyer);
         record.setStatus(status);
         this.recordRepo.save(record);

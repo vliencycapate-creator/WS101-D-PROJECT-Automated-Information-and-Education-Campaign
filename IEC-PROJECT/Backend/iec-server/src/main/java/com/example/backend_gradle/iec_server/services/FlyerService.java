@@ -66,7 +66,7 @@ public class FlyerService {
         var flyer = this.flyerMapper.toEntity(flyerRequest);
         flyer.setCreatedBy(this.userService.getUserById(user.getId()).getId());
         var savedFlyer = this.flyerRepo.save(flyer);
-        var record = this.recordService.postRecord(savedFlyer.getId(), user.getEmail());
+        var record = this.recordService.postRecord(savedFlyer, user.getEmail());
         savedFlyer.setRecord(record);
         this.flyerRepo.save(savedFlyer);
         this.imageService.postImages(savedFlyer, flyerImageRequest.getImages());
@@ -78,7 +78,7 @@ public class FlyerService {
         var flyer = this.flyerRepo.findById(id).orElse(null);
         ApiAssert.notFoundIf(flyer == null, "Flyer not found with id: " + id);
         ApiAssert.forbiddenIf(userDto.getId() != flyer.getCreatedBy(), "You do not own this flyer");
-        this.recordService.updateRecordByFlyerId(flyer.getId(), null, "deleted");
+        this.recordService.updateRecordByFlyerId(flyer, "deleted");
         this.imageService.deleteUploadedImages(flyer);
         this.flyerRepo.delete(flyer);
         return ResponseBuilder.success("Flyer deleted successful", null);
@@ -101,14 +101,14 @@ public class FlyerService {
             this.imageService.deleteImagesFromListId(flyer, flyerImageRequest.getImagesToDel());
         }
 
-        this.recordService.updateRecordByFlyerId(flyer.getId(), flyer, "pending");
+        this.recordService.updateRecordByFlyerId(flyer, "pending");
         return ResponseBuilder.success("Flyer updated successful", null);
     }
 
     public ResponseEntity<?> updateFlyerStatusById(long id, String status) {
         var flyer = this.flyerRepo.findById(id).orElse(null);
         ApiAssert.notFoundIf(flyer == null, "Flyer not found with id: " + id);
-        this.recordService.updateRecordByFlyerId(flyer.getId(), flyer, status);
+        this.recordService.updateRecordByFlyerId(flyer, status);
         return ResponseBuilder.success("Flyer " + status + " successful", null);
     }
 
