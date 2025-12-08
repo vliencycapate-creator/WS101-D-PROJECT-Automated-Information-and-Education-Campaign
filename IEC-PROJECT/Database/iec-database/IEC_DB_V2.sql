@@ -7,7 +7,7 @@ CREATE TABLE users(
     password VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     role ENUM('faculty', 'admin') DEFAULT 'faculty',
-    status ENUM('active', 'offline') DEFAULT 'offline',
+    status ENUM('online', 'offline') DEFAULT 'offline',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
