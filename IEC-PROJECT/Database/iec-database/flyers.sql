@@ -6,7 +6,7 @@ CREATE TABLE flyers(
     created_by BIGINT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    flyer_record_id BIGINT,
+    flyer_record_id BIGINT DEFAULT NULL,
     FOREIGN KEY (created_by) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (flyer_record_id) REFERENCES flyer_records(flyer_record_id)
 );
