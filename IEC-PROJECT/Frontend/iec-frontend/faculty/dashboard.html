@@ -1,11 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>IEC | Faculty</title>
+
+    <!-- CSS LINKS -->
+    <link rel="stylesheet" href="../css/colors.css">
+    <link rel="stylesheet" href="../css/component/header.css">
+    <link rel="stylesheet" href="../css/component/sidebar.css">
+
+    <link rel="stylesheet" href="../css/faculty/dashboard.css">
 </head>
+
 <body>
-    <h1>FACULTY</h1>
+
+    <header class="header">
+        <div class="title-box">
+            <!-- <div id="menu-icon" class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div> -->
+            <div class="logo">IEC</div>
+            <p>
+                Automated <br>
+                Information &amp; <br>
+                Education Campaign
+            </p>
+        </div>
+
+        <!-- NAV LINKS -->
+        <nav class="nav-links">
+            <a href="./dashboard.html" class="active">Dashboard</a>
+            <a href="./flyer-management.html">Flyers</a>
+            <a href="./pending-management.html">Pending Flyers</a>
+            <a href="./declined-flyers.html">Declined Flyers</a>
+            <a href="./feedback-management.html">Feedbacks</a>
+        </nav>
+
+        <!-- AUTH BOX -->
+        <div id="auth-box" class="auth-box">
+            <a id="logoutButton" class="active">Logout</a>
+        </div>
+    </header>
+
+    <!-- ---------- ASIDE/SIDEBAR ---------- -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    <aside id="sidebar" class="sidebar">
+        <nav class="sidebar-links">
+            <a href="./dashboard.html" class="active">Dashboard</a>
+            <a href="./flyer-management.html">Flyers</a>
+            <a href="./pending-management.html">Pending Flyers</a>
+            <a href="./declined-flyers.html">Declined Flyers</a>
+            <a href="./user-management.html">Users</a>
+            <a href="./feedback-management.html">Feedbacks</a>
+        </nav>
+    </aside>
+
+    <div class="container">
+        <div id="flyer-creator" class="wrap">
+            <!-- MAIN CREATOR PANEL -->
+            <div class="panel">
+                <h2>Flyer Creator</h2>
+                <p>Upload 1–3 images, edit title & descriptions.
+                </p>
+
+                <!-- top uploader -->
+                <label>Upload Images (1–3)</label>
+                <input id="images" name="images" type="file" accept="image/*" multiple />
+
+                <label>Category</label>
+                <select name="category" id="category">
+                    <option value="">-- Select a category --</option>
+                    <option value="nature preservation">Nature Preservation</option>
+                    <option value="disaster preparedness">Disaster Preparedness</option>
+                    <option value="climate policy">Climate Policy</option>
+                    <option value="awareness and education">Awareness &amp; Education</option>
+                </select>
+
+                <!-- FLYER TITLE -->
+                <label>Title</label>
+                <input type="text" name="title" id="title" placeholder="Enter title">
+
+                <!-- FLYER DESCRIPTION -->
+                <label>Descriptions</label>
+                <input type="text" name="description" id="description" placeholder="Enter description">
+
+                <div class="flyer-action-box">
+                    <button class="addDescBtn add-btn" id="addDesc">Add Description</button>
+                    <button class="livePreviewBtn" id="previewBtn">Live Preview</button>
+                </div>
+
+                <div class="post-btn-box">
+                    <button class="postBtn" id="postBtn">Post Flyer</button>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Live preview -->
+            <div class="right">
+                <div class="panel preview">
+                    <h3>Live Preview</h3>
+                    <div id="livePreview" class="livePreview">
+                        <div class="images"></div>
+                        <div class="pvCategory"></div>
+                        <div id="pvTitle"></div>
+                        <div id="pvDesc"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="dashboard" class="dashboard">
+            <div class="heading">
+                <h2>Faculty Dashboard</h2>
+                <button id="addFlyer">Add Flyer</button>
+            </div>
+
+            <div class="stats-container" id="stats-container">
+
+                <div class="stat-card">
+                    <h3>Total Flyers</h3>
+                    <p id="totalFlyers">0</p>
+                </div>
+
+                <div class="stat-card highlight">
+                    <h3>Pending Flyers</h3>
+                    <p id="pendingCount">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Total Feedback</h3>
+                    <p id="feedbackCount">0</p>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <script type="module" src="/js/faculty/dashboard.js"></script>
+    <script type="module" src="../js/faculty/flyerCreator.js"></script>
 </body>
 </html>

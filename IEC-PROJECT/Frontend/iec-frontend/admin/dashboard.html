@@ -4,11 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>IEC | Admin</title>
+
+    <!-- CSS LINKS -->
+    <link rel="stylesheet" href="../css/colors.css">
+    <link rel="stylesheet" href="../css/component/header.css">
+    <link rel="stylesheet" href="../css/component/sidebar.css">
+    
     <link rel="stylesheet" href="../css/admin/dashboard.css">
 </head>
 
 <body>
-
     <header class="header">
         <div class="title-box">
             <!-- <div id="menu-icon" class="menu-icon">
@@ -54,8 +59,63 @@
     </aside>
 
     <div class="container">
-        <section class="dashboard">
-            <h2>Admin Dashboard</h2>
+        <div id="flyer-creator" class="wrap">
+            <!-- MAIN CREATOR PANEL -->
+            <div class="panel">
+                <h2>Flyer Creator</h2>
+                <p>Upload 1–3 images, edit title & descriptions.
+                </p>
+
+                <!-- top uploader -->
+                <label>Upload Images (1–3)</label>
+                <input id="images" name="images" type="file" accept="image/*" multiple />
+
+                <label>Category</label>
+                <select name="category" id="category">
+                    <option value="">-- Select a category --</option>
+                    <option value="nature preservation">Nature Preservation</option>
+                    <option value="disaster preparedness">Disaster Preparedness</option>
+                    <option value="climate policy">Climate Policy</option>
+                    <option value="awareness and education">Awareness &amp; Education</option>
+                </select>
+
+                <!-- FLYER TITLE -->
+                <label>Title</label>
+                <input type="text" name="title" id="title" placeholder="Enter title">
+
+                <!-- FLYER DESCRIPTION -->
+                <label>Descriptions</label>
+                <input type="text" name="description" id="description" placeholder="Enter description">
+
+                <div class="flyer-action-box">
+                    <button class="addDescBtn add-btn" id="addDesc">Add Description</button>
+                    <button class="livePreviewBtn" id="previewBtn">Live Preview</button>
+                </div>
+
+                <div class="post-btn-box">
+                    <button class="postBtn" id="postBtn">Post Flyer</button>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Live preview -->
+            <div class="right">
+                <div class="panel preview">
+                    <h3>Live Preview</h3>
+                    <div id="livePreview" class="livePreview">
+                        <div class="images"></div>
+                        <div class="pvCategory"></div>
+                        <div id="pvTitle"></div>
+                        <div id="pvDesc"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="dashboard" class="dashboard">
+            <div class="heading">
+                <h2>Admin Dashboard</h2>
+                <button id="addFlyer">Add Flyer</button>
+            </div>
 
             <div class="stats-container" id="stats-container">
 
@@ -80,10 +140,34 @@
                 </div>
 
             </div>
+
+            <h2>Faculty Management</h2>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Date Registered</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="userTable">
+                        <tr id="noUsers">
+                            <td colspan="5">No users found.</td>
+                        </tr>
+                    </tbody>
+                </table>
         </section>
     </div>
 
 
-    <script src="../js/admin/admin.js"></script>
+    <script type="module" src="../js/admin/dashboard.js"></script>
+    <script type="module" src="../js/faculty/flyerCreator.js"></script>
 </body>
+
 </html>

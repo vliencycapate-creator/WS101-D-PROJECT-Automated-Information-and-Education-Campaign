@@ -1,6 +1,6 @@
 @import url(/src/styles/colors.css);
 
-/* ============= BACKDROP ============= */
+/* ----------------- BACKDROP ----------------- */
 .auth-container {
   position: fixed;
   top: 0;
@@ -30,7 +30,7 @@
   pointer-events: none;
 }
 
-/* ============= POP ANIMATIONS ============= */
+/* ----------------- POP ANIMATIONS ----------------- */
 @keyframes popup {
   0% {
     opacity: 0;
@@ -65,7 +65,7 @@
   animation: popout 0.25s ease forwards;
 }
 
-/* ============= MODAL ============= */
+/* ----------------- MODAL ----------------- */
 .auth-container .modal {
   position: relative;
   width: 380px;
@@ -111,7 +111,7 @@
   transform: translateY(-4px) rotate(-45deg);
 }
 
-/* ============= FORM ============= */
+/* ----------------- FORM ----------------- */
 .auth-container .auth-form {
   width: 100%;
   display: none;
@@ -154,10 +154,11 @@
 /* FOR SERVER MESSAGE */
 .auth-container .auth-form form > p {
   width: 100%;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  padding: 8px;
 }
 
 .auth-container .auth-form button {
@@ -169,7 +170,7 @@
   background: var(--primary-color);
   border: none;
   border-radius: 6px;
-  margin-top: 10px;
+  margin-top: 20px;
   cursor: pointer;
 }
 

@@ -1,25 +1,3 @@
-// FOR WEBSITE FEEDBACKS
-const websiteFeedback = [
-    {
-        "username" : "Pedro",
-        "flyer_title" : "Protect our nature",
-        "message" : "This is nice to read. Thank you for sharing",
-        "date" : "2025-11-23"
-    },
-    {
-        "username" : "Juan",
-        "flyer_title" : "Protect our nature",
-        "message" : "Thank you for sharing",
-        "date" : "2025-12-03"
-    },
-]
-
-websiteFeedback.forEach(feedback => {
-    document.getElementById("wf-table-notice").style.display = "none";
-    createTableRow(feedback, "websiteFeedbackTable");
-});
-
-
 // FOR FLYERS FEEDBACKS
 const flyersFeedback = [
     {

@@ -17,24 +17,6 @@ document.getElementById('menu-icon').onclick = () => {
     });
 }
 
-
-// function toggleMenuIcon() {
-//     const menuIcon = document.getElementById("menu-icon");
-//     const sidebarOverlay = document.getElementById("sidebar-overlay");
-//     const sidebar = document.getElementById("sidebar");
-//     const isOpen = sidebar.style.left === "0px";
-
-//     menuIcon.classList.toggle('active');
-
-//     sidebar.style.left = isOpen ? "-250px" : "0px";
-//     sidebarOverlay.style.display = isOpen ? "none" : "block";
-
-//     sidebarOverlay.addEventListener('click', () => {
-//         sidebarOverlay.style.display = "none";
-//         closeSidebar();
-//     });
-// }
-
 // ---------- FOR CLOSING SIDEBAR ----------
 function closeSidebar() {
     document.getElementById("menu-icon").classList.remove("active");

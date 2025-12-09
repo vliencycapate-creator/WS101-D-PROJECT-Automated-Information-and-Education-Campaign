@@ -105,106 +105,195 @@ body {
   margin-top: 10px;
 }
 
-.flyer-list .flyerCard {
-  width: 295px;
-  max-height: 440px;
-  min-height: 440px;
+.flyer-list .flyerWrapper {
+  width: fit-content;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 5px;
-  border-radius: 12px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
+  align-items: center;
 }
 
-.flyer-list .flyerCard .img-box {
+.flyer-list .flyerWrapper .actionWrapper {
   width: 100%;
-  height: 180px;
-  overflow: hidden;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.flyer-list .flyerCard .img-box img {
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
+.card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.flyer-list .flyerCard .img-box img:hover {
-  transform: scale(1.1);
-}
-
-.flyer-list .flyerCard .category {
-  font-size: 0.9rem;
-  margin: 5px 10px;
-}
-
-.flyer-list .flyerCard .flyer-content {
-  width: 100%;
-  height: 120px;
-  padding: 10px;
-}
-
-.flyer-list .flyerCard .flyer-content h3 {
-  font-size: 0.9rem;
-  color: var(--text-color);
-  margin-bottom: 10px;
-}
-
-.flyer-list .flyerCard .flyer-content p {
-  /* max-height: 35px;
-    font-size: .9rem;
+.flyer-card {
+    /* display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px; */
+    position: relative;
+    width: 295px;
+    max-height: 440px;
+    min-height: 440px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical; */
-  display: -webkit-box;
-  font-size: 0.9rem;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
-.flyer-list .flyerCard .flyer-btn {
-  width: fit-content;
-  font-size: 0.8rem;
-  color: #fff;
-  background: var(--primary-color);
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.carousel-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-inner img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.carousel-inner img.active {
+    display: block;
+}
+
+.carousel-prev,
+.carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.carousel-prev {
+    left: 5px;
+}
+
+.carousel-next {
+    right: 5px;
+}
+
+.card-content {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-description {
+    /* font-size: 14px;
+    color: #666; */
+    display: -webkit-box;
+    font-size: 0.9rem;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#read-more-btn {
+    width: fit-content;
+    font-size: .9rem;
+    color: #fff;
+    padding: 5px 8px;
+    background: blue;
+    border: none;
+    border-radius: 6px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#read-more-btn:hover {
+    background: darkblue;
+}
+
+.author-container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 0px 10px 10px 10px;
+    overflow: hidden;
+}
+
+.author-container p {
+    font-size: 14px;
+    color: #666;
+}
+
+#delete-btn,
+#cancel-btn {
+    font-size: .9rem;
+    color: #fff;
+    padding: 5px 8px;
+    background: red;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#delete-btn:hover,
+#cancel-btn:hover {
+    background: darkred;
+}
+
+.declinedIndicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: .9rem;
+  color: white;
   padding: 5px 8px;
+  background: red;
   border: none;
   border-radius: 6px;
-  margin: 10px;
-  cursor: pointer;
 }
 
-.flyer-list .flyerCard .flyer-btn:hover {
-  background-color: var(--accent-color);
+.action-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
-.flyer-list .flyerCard .author-container {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 5px;
-  padding: 0px 10px 10px 10px;
-  overflow: hidden;
+#update-btn {
+    font-size: .9rem;
+    color: #fff;
+    padding: 5px 8px;
+    background: green;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-.flyer-list .flyerCard .author-container p {
-  font-size: 0.8rem;
-  color: var(--sec-text-color);
-  text-wrap: nowrap;
+#update-btn:hover {
+    background: darkgreen;
 }
 
-.flyer-list .flyerCard .author-container p .createdBy,
-.flyer-list .flyerCard .author-container p .createdAt {
-  font-size: 0.9rem;
-  color: var(--sec-text-color);
-  flex-wrap: nowrap;
-}
 
 @media (max-width: 768px) {
   .container section .flyer-navbar-container {

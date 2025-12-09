@@ -7,6 +7,10 @@
     <title>IEC - UEP</title>
 
     <!-- CSS LINK -->
+    <link rel="stylesheet" href="../css/colors.css">
+    <link rel="stylesheet" href="../css/component/header.css">
+    <link rel="stylesheet" href="../css/component/sidebar.css">
+    <link rel="stylesheet" href="../css/component/footer.css">
     <link rel="stylesheet" href="../css/section/services.css">
     <link rel="stylesheet" href="../css/auth.css">
 </head>
@@ -184,13 +188,13 @@
 
             <div id="login-form" class="auth-form active">
                 <h2>Login</h2>
-                <form id="loginForm" method="POST">
+                <form id="loginForm">
+                    <p id="login-message" class="msg"></p>
                     <label>Email</label>
                     <input type="email" name="email" id="loginEmail">
                     <label>Password</label>
                     <input type="password" name="password" id="loginPassword">
-                    <p id="login-message" class="msg"></p>
-                    <button type="submit" formenctype="multipart/form-data">Login</button>
+                    <button type="submit">Login</button>
                 </form>
 
                 <div class="links">
@@ -203,13 +207,15 @@
                 <h2>Register</h2>
 
                 <form id="registerForm">
-                    <label>Name</label>
-                    <input type="text" id="regName">
-                    <label>Email</label>
-                    <input type="email" id="regEmail">
-                    <label>Password</label>
-                    <input type="password" id="regPassword">
                     <p id="register-message" class="msg"></p>
+                    <label>Name</label>
+                    <input type="text" name="username" id="regName">
+                    <label>Email</label>
+                    <input type="email" name="email" id="regEmail">
+                    <label>Password</label>
+                    <input type="password" name="password" id="regPassword">
+                    <!-- <label>Role</label>
+                    <input type="text" name="role" id="regRole"> -->
                     <button type="submit">Register</button>
                 </form>
 
@@ -255,7 +261,7 @@
         </div>
     </footer>
 
-    <script src="../js/auth.js"></script>
+    <script type="module" src="../js/auth.js"></script>
     <script src="../js/components/header.js"></script>
 </body>
 

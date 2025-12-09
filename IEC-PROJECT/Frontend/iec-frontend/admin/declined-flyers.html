@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>IEC | Admin</title>
-    <link rel="stylesheet" href="../css/admin/dashboard.css">
+
+    <!-- CSS LINKS -->
+    <link rel="stylesheet" href="../css/colors.css">
+    <link rel="stylesheet" href="../css/component/header.css">
+    <link rel="stylesheet" href="../css/component/sidebar.css">
+    
+    <link rel="stylesheet" href="../css/admin/flyers.css">
 </head>
 
 <body>
@@ -55,16 +61,33 @@
 
     <div class="container">
         <section class="flyer-review">
-            <h2>Declined Flyers</h2>
+            <div class="flyer-navbar-container">
+                <h2>Declined Flyers</h2>
 
-            <div class="flyer-grid" id="declinedFlyersList">
-                <p>No declined flyers.</p>
+                <div class="search-bar-container">
+                    <select name="category" id="category">
+                        <option value="all">All</option>
+                        <option value="nature preservation">Nature Preservation</option>
+                        <option value="disaster preparedness">Disaster Preparedness</option>
+                        <option value="climate policy">Climate Policy</option>
+                        <option value="awareness and education">Awareness &amp; Education</option>
+                    </select>
+                    <input type="text" name="search" id="search-bar" placeholder="Search">
+                    <button id="search-btn">Search</button>
+                </div>
+            </div>
+
+            <div class="section-box">
+                <div id="no-flyers-notice" class="no-flyers-notice">
+                    <h2>No Declined Flyers</h2>
+                </div>
+                <div id="declined-flyer-list" class="flyer-list"></div>
             </div>
         </section>
     </div>
 
 
-    <script src="../js/admin/admin.js"></script>
+    <script type="module" src="../js/admin/declined-management.js"></script>
 </body>
 
 </html>

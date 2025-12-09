@@ -1,18 +1,7 @@
-// ---------- FETCHING ALL FLYERS ----------
-// async function fetchFlyers() {
-//     try {
-//         const response = await fetch("http://192.168.68.50/my_websites/Backends/iec-server-v-1.3/public/index.php/flyers");
-//         const flyers = await response.json();
-//         // console.log(data)
-//         // return data;
-//         alert(flyers.data);
-//         flyers.data.forEach(d => {
-//             createFlyerElem(d)
-//         });
-//     } catch (error) {
-//         console.error('Error:', error)
-//     }
-// }
+import { apiGet } from "../api/api.js";
+import { IMG_URL_BASE } from "../api/base_api.js";
+
+// const IMG_URL_BASE = "http://192.168.68.53/iec-server/";
 
 // ---------- CREATING FLYER ELEMENT
 function createFlyerElem(flyerData) {
@@ -27,9 +16,9 @@ function createFlyerElem(flyerData) {
     const readButton = document.createElement('button');        // Read More Button
     const authorBox = document.createElement('div');            // Author Container
     const createdByP = document.createElement('p');
-    const createdBy = document.createElement('strong');              // Flyers Created By (Name)
+    const createdBy = document.createElement('strong');         // Flyers Created By (Name)
     const createdAtP = document.createElement('p');
-    const createdAt = document.createElement('strong');              // Flyers Created At (Date)
+    const createdAt = document.createElement('strong');         // Flyers Created At (Date)
 
     // Setting Text Content
     readButton.textContent = 'Read more';
@@ -62,11 +51,7 @@ function createFlyerElem(flyerData) {
     authorBox.appendChild(createdAtP);
     createdAtP.appendChild(createdAt);
 
-    // console.log(flyerData);
-    // flyerData.forEach(d => {
-    //     console.log(d);
-    // });
-    image.src = flyerData.imgUrl;
+    image.src = IMG_URL_BASE + flyerData.images[0].imagePath;
     category.textContent = flyerData.category;
     title.textContent = flyerData.title;
     description.textContent = flyerData.description;
@@ -76,14 +61,14 @@ function createFlyerElem(flyerData) {
     flyerList.appendChild(flyerCard);
 }
 
-
 // SEARCH FLYERS
 let allFlyers = [];
 
 async function fetchFlyers() {
     try {
-        const response = await fetch("http://192.168.68.50/my_websites/Backends/iec-server-v-1.3/public/index.php/flyers");
-        const flyers = await response.json();
+        const flyers = await apiGet("flyers");
+
+        console.log(flyers.data.title);
 
         allFlyers = flyers.data; // store flyers for searching
 
@@ -91,13 +76,20 @@ async function fetchFlyers() {
         const list = document.getElementById("flyer-list");
         list.innerHTML = ""; // clear first
 
-        allFlyers.forEach(d => createFlyerElem(d));
+        allFlyers.forEach(flyer => {
+            if (flyer.record["status"] === "approved") {
+                document.getElementById("no-flyers-notice").style.display = "none";
+                document.getElementById("flyer-list").style.display = "flex";
+                createFlyerElem(flyer);
+            }
+        });
 
     } catch (error) {
         console.error("Error:", error);
     }
 }
 
+// FOR SEARCHING FLYERS
 function searchFlyers() {
     const category = document.getElementById("category").value.toLowerCase();
     const query = document.getElementById("search-bar").value.toLowerCase();
@@ -129,7 +121,6 @@ function searchFlyers() {
 document.getElementById("search-btn").addEventListener("click", searchFlyers);
 document.getElementById("search-bar").addEventListener("input", searchFlyers);
 document.getElementById("category").addEventListener("change", searchFlyers);
-
 
 
 fetchFlyers();
