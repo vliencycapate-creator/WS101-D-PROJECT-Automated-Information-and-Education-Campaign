@@ -31,7 +31,11 @@ public class RecordService {
     @Transactional
     public void updateRecordByFlyerId(Flyer flyer, String status) {
         var record = this.getRecordById(flyer.getRecord().getId());
-        record.setFlyer(flyer);
+        if (status.equalsIgnoreCase("deleted")) {
+            record.setFlyer(null);
+        } else {
+            record.setFlyer(flyer);
+        }
         record.setStatus(status);
         this.recordRepo.save(record);
     }
