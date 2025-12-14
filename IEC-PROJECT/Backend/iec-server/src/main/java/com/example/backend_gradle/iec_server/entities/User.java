@@ -27,8 +27,11 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role")
+    @Column(name = "role", insertable = false, updatable = false)
     private String role;
+
+    @Column(name = "status", insertable = false)
+    private String status;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
