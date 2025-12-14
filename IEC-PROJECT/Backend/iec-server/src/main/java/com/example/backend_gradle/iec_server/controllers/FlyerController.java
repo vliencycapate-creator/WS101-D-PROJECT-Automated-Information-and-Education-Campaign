@@ -4,7 +4,7 @@ import com.example.backend_gradle.iec_server.dtos.flyer.FlyerImageRequest;
 import com.example.backend_gradle.iec_server.dtos.flyer.FlyerRequest;
 import com.example.backend_gradle.iec_server.dtos.flyer.RequestFlyerStatus;
 import com.example.backend_gradle.iec_server.dtos.user.UserDto;
-import com.example.backend_gradle.iec_server.utils.ValidationHelper;
+import com.example.backend_gradle.iec_server.validation.ValidationHelper;
 import com.example.backend_gradle.iec_server.services.FlyerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
