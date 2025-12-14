@@ -51,6 +51,8 @@ public class FlyerService {
 
         if (userDto != null && userDto.getRoles().contains("admin")) {
             flyer = this.flyerRepo.findById(id).orElse(null);
+        } else if (userDto != null && userDto.getRoles().contains("faculty")) {
+            flyer = this.flyerRepo.findByIdForUser(id, userDto.getId()).orElse(null);
         } else {
             flyer = this.flyerRepo.findApprovedById(id).orElse(null);
         }
@@ -59,6 +61,26 @@ public class FlyerService {
         var flyerDto = flyerMapper.toDto(flyer);
         flyerDto.setCreatedBy(this.userService.getUserById(flyer.getCreatedBy()).getUsername());
         return ResponseBuilder.success("Flyer fetch successful", flyer);
+    }
+
+    public ResponseEntity<?> getAllFlyersForUsers(UserDto userDto, String category, String search, String status) {
+        var flyers = this.flyerRepo.findAllForUser(userDto.getId(), category, search, status);
+        ApiAssert.notFoundIf(flyers.isEmpty(), "No flyers found!");
+        var flyersDto = flyers.stream()
+                .map(flyer -> {
+                    var flyerDto = flyerMapper.toDto(flyer);
+                    flyerDto.setCreatedBy(this.userService.getUserById(flyer.getCreatedBy()).getUsername());
+                    return flyerDto;
+                })
+                .toList();
+        return ResponseBuilder.success("Flyers fetch successful", flyersDto);
+    }
+
+    // Reuse in mutation
+    public Flyer getFlyerByIdForUsers(long id, long userId) {
+        var flyer = this.flyerRepo.findByIdForUser(id, userId).orElse(null);
+        ApiAssert.notFoundIf(flyer == null, "Flyer not found");
+        return flyer;
     }
 
     @Transactional
@@ -75,9 +97,7 @@ public class FlyerService {
 
     @Transactional
     public ResponseEntity<?> deleteFlyerById(long id, UserDto userDto) {
-        var flyer = this.flyerRepo.findById(id).orElse(null);
-        ApiAssert.notFoundIf(flyer == null, "Flyer not found with id: " + id);
-        ApiAssert.forbiddenIf(userDto.getId() != flyer.getCreatedBy(), "You do not own this flyer");
+        var flyer = this.getFlyerByIdForUsers(id, userDto.getId());
         this.recordService.updateRecordByFlyerId(flyer, "deleted");
         this.imageService.deleteUploadedImages(flyer);
         this.flyerRepo.delete(flyer);
@@ -86,9 +106,7 @@ public class FlyerService {
 
     @Transactional
     public ResponseEntity<?> updateFlyerById(long id, FlyerRequest flyerRequest, FlyerImageRequest flyerImageRequest, UserDto userDto) {
-        var flyer = this.flyerRepo.findById(id).orElse(null);
-        ApiAssert.notFoundIf(flyer == null, "Flyer not found with id: " + id);
-        ApiAssert.forbiddenIf(userDto.getId() != flyer.getCreatedBy(), "You do not own this flyer");
+        var flyer = this.getFlyerByIdForUsers(id, userDto.getId());
         flyer.setTitle(flyerRequest.getTitle());
         flyer.setDescription(flyerRequest.getDescription());
         flyer.setCategory(flyerRequest.getCategory());
