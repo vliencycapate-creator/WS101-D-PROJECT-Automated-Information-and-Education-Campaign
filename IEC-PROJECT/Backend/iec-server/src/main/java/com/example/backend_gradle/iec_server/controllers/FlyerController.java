@@ -33,6 +33,15 @@ public class FlyerController {
         return this.flyerService.getFlyerById(id, user);
     }
 
+    @GetMapping("/myflyers")
+    public ResponseEntity<?> getUserFlyers(
+            @AuthenticationPrincipal UserDto user,
+            @RequestParam(required = false, name = "category") String category,
+            @RequestParam(required = false, name = "search") String search,
+            @RequestParam(required = false, name = "status") String status) {
+        return this.flyerService.getAllFlyersForUsers(user, category, search, status);
+    }
+
     @PostMapping("/flyers")
     public ResponseEntity<?> postFlyer(
             @ModelAttribute FlyerRequest flyerRequest,
