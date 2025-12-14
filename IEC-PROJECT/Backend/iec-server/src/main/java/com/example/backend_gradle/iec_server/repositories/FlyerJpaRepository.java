@@ -73,4 +73,37 @@ public interface FlyerJpaRepository extends JpaRepository<@NonNull Flyer, @NonNu
             """, nativeQuery = true)
     Optional<Flyer> findApprovedById(@Param("id") Long id);
 
+    @Query(value = """
+    SELECT f.* FROM flyers f
+    JOIN users u ON u.user_id = f.created_by
+    JOIN flyer_records fr ON fr.flyer_id = f.flyer_id
+    WHERE u.user_id = :userId
+    AND (:category IS NULL OR f.category = :category)
+    AND (:status IS NULL OR fr.status = :status)
+    AND (
+        :search IS NULL OR
+    	(
+    	    (f.title REGEXP CONCAT(
+    	    '(^|[^a-zA-Z0-9])',
+    	    REPLACE(:search ,' ','([^a-zA-Z0-9]|$)|(^|[^a-zA-Z0-9])'),
+    	    '([^a-zA-Z0-9]|$)')
+    	    OR
+        u.username REGEXP CONCAT(
+            '(^|[^a-zA-Z0-9])',
+            REPLACE(:search ,' ','([^a-zA-Z0-9]|$)|(^|[^a-zA-Z0-9])'),
+            '([^a-zA-Z0-9]|$)')
+            )
+        )
+    );
+    """, nativeQuery = true)
+    List<Flyer> findAllForUser(@Param("userId") Long id,@Param("category") String category, @Param("search") String search, @Param("status") String status);
+
+    @Query(value = """
+            SELECT f.* FROM flyers f
+            JOIN users u on u.user_id = f.created_by
+            WHERE u.user_id = :userId
+            AND f.flyer_id = :flyerId
+            """, nativeQuery = true)
+    Optional<Flyer> findByIdForUser(@Param("flyerId") Long flyerId, @Param("userId") Long userId);
+
 }
