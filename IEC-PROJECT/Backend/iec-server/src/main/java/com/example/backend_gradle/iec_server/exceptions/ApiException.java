@@ -7,17 +7,17 @@ import org.springframework.http.HttpStatus;
 public class ApiException extends RuntimeException {
 
     private final HttpStatus status;
-    private Object data;
+    private Object errors;
 
     public ApiException(String message, HttpStatus status) {
         super(message);
         this.status = status;
     }
 
-    public ApiException(String message, Object data, HttpStatus status) {
+    public ApiException(String message, Object errors, HttpStatus status) {
         super(message);
         this.status = status;
-        this.data = data;
+        this.errors = errors;
     }
 
 }
