@@ -1,8 +1,7 @@
 package com.example.backend_gradle.iec_server.dtos.flyer;
 
-import com.example.backend_gradle.iec_server.utils.validation_interface.ImageOnly;
-import com.example.backend_gradle.iec_server.utils.validation_interface.ImageSize;
-import jakarta.validation.constraints.NotNull;
+import com.example.backend_gradle.iec_server.validation.validation_interface.ImageOnly;
+import com.example.backend_gradle.iec_server.validation.validation_interface.ImageSize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

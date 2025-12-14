@@ -2,7 +2,7 @@ package com.example.backend_gradle.iec_server.services;
 
 import com.example.backend_gradle.iec_server.entities.Flyer;
 import com.example.backend_gradle.iec_server.entities.Record;
-import com.example.backend_gradle.iec_server.utils.ApiAssert;
+import com.example.backend_gradle.iec_server.exceptions.ApiAssert;
 import com.example.backend_gradle.iec_server.repositories.RecordJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
