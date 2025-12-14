@@ -31,7 +31,7 @@ public class ImageService {
             .toAbsolutePath()
             .resolve("IEC-PROJECT/Backend/iec-server/uploads");
 
-
+    @Transactional
     public void postImages(Flyer flyer, Object imageList) {
         var images = this.uploadImage(flyer.getId(), (MultipartFile[]) imageList)
                 .stream()
