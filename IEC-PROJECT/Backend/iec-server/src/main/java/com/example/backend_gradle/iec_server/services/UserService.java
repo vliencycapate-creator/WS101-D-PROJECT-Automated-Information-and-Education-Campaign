@@ -37,20 +37,20 @@ public class UserService {
 
     public ResponseEntity<?> loginUser(LoginRequest loginRequest) {
         var user = this.getUserByEmail(loginRequest.getEmail());
-        if(!securityConfig.passwordEncoder().matches(loginRequest.getPassword(), user.getPassword())) throw new ApiException("Invalid email or password", null, HttpStatus.BAD_REQUEST);
+        ApiAssert.unAuthorizedIf(!securityConfig.passwordEncoder().matches(loginRequest.getPassword(), user.getPassword()), "Invalid email or password");
         var token = this.jwtUtils.generateToken(this.userMapper.toDto(user));
         return ResponseBuilder.success("Login successful",new ResponseToken(token, user.getRole()));
     }
 
     public User getUserByEmail(String email) {
         User user = this.userRepo.findByEmail(email).orElse(null);
-        ApiAssert.notFoundIf(user == null, "User not found with email: " + email);
+        ApiAssert.notFoundIf(user == null, "Email is not registered");
         return user;
     }
 
     public User getUserById(long id) {
         User user = this.userRepo.findById(id).orElse(null);
-        ApiAssert.notFoundIf(user == null, "User not found with id: " + id);
+        ApiAssert.notFoundIf(user == null, "User not found");
         return user;
     }
 
