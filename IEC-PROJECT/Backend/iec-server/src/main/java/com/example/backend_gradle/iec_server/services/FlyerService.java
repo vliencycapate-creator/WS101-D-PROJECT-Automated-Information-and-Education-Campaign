@@ -57,7 +57,7 @@ public class FlyerService {
             flyer = this.flyerRepo.findApprovedById(id).orElse(null);
         }
 
-        ApiAssert.notFoundIf(flyer == null, "Flyer not found with id: " + id);
+        ApiAssert.notFoundIf(flyer == null, "Flyer not found");
         var flyerDto = flyerMapper.toDto(flyer);
         flyerDto.setCreatedBy(this.userService.getUserById(flyer.getCreatedBy()).getUsername());
         return ResponseBuilder.success("Flyer fetch successful", flyer);
@@ -125,7 +125,7 @@ public class FlyerService {
 
     public ResponseEntity<?> updateFlyerStatusById(long id, String status) {
         var flyer = this.flyerRepo.findById(id).orElse(null);
-        ApiAssert.notFoundIf(flyer == null, "Flyer not found with id: " + id);
+        ApiAssert.notFoundIf(flyer == null, "Flyer not found");
         this.recordService.updateRecordByFlyerId(flyer, status);
         return ResponseBuilder.success("Flyer " + status + " successful", null);
     }
