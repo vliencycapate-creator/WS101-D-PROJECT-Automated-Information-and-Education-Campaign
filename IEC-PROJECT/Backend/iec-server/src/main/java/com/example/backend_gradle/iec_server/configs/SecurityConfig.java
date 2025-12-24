@@ -48,7 +48,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) {
         http
-                .cors(Customizer.withDefaults())
+                .cors(
+                        cors -> {
+                            CorsConfiguration configuration = new CorsConfiguration();
+                            configuration.addAllowedOriginPattern("*");
+                            configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                            configuration.setAllowedHeaders(List.of("*"));
+                            configuration.setAllowCredentials(true);
+
+                            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                            source.registerCorsConfiguration("/**", configuration);
+
+                            cors.configurationSource(source);
+                        }
+                )
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
