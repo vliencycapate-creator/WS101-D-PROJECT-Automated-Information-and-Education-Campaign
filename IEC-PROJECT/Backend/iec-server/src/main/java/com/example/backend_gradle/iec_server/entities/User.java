@@ -27,12 +27,26 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role", insertable = false, updatable = false)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", updatable = false)
+    private UserRoles role;
 
-    @Column(name = "status", insertable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private UserStatus status;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @PrePersist
+    void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        if (this.status == null) {
+            this.status = UserStatus.offline;
+        }
+
+        if (this.role == null) {
+            this.role = UserRoles.faculty;
+        }
+    }
 }
