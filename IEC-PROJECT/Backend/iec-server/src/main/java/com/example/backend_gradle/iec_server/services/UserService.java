@@ -6,6 +6,7 @@ import com.example.backend_gradle.iec_server.dtos.user.LoginRequest;
 import com.example.backend_gradle.iec_server.dtos.user.RegistrationRequest;
 import com.example.backend_gradle.iec_server.dtos.user.UserDto;
 import com.example.backend_gradle.iec_server.entities.User;
+import com.example.backend_gradle.iec_server.entities.enums.UserStatus;
 import com.example.backend_gradle.iec_server.exceptions.ApiException;
 import com.example.backend_gradle.iec_server.http.ResponseBuilder;
 import com.example.backend_gradle.iec_server.exceptions.ApiAssert;
@@ -28,6 +29,8 @@ public class UserService {
     private final JwtUtils jwtUtils;
 
     public ResponseEntity<?> registerUser(RegistrationRequest registrationRequest) {
+        var isRegistered = this.userRepo.findByEmail(registrationRequest.getEmail()).orElse(null);
+        ApiAssert.unAuthorizedIf(isRegistered != null, "Email is already registered");
         var passEncoder = securityConfig.passwordEncoder();
         var user = this.userMapper.toEntity(registrationRequest);
         user.setPassword(passEncoder.encode(user.getPassword()));
@@ -36,16 +39,23 @@ public class UserService {
     }
 
     public ResponseEntity<?> loginUser(LoginRequest loginRequest) {
-        var user = this.getUserByEmail(loginRequest.getEmail());
-        ApiAssert.unAuthorizedIf(!securityConfig.passwordEncoder().matches(loginRequest.getPassword(), user.getPassword()), "Invalid email or password");
+        var user = this.userRepo.findByEmail(loginRequest.getEmail()).orElse(null);
+        ApiAssert.unAuthorizedIf(
+                user == null || !securityConfig
+                        .passwordEncoder()
+                        .matches(loginRequest.getPassword(), user.getPassword()), "Invalid email or password");
+        user.setStatus(UserStatus.online);
+        this.userRepo.save(user);
         var token = this.jwtUtils.generateToken(this.userMapper.toDto(user));
-        return ResponseBuilder.success("Login successful",new ResponseToken(token, user.getRole()));
+        return ResponseBuilder.success("Login successful",new ResponseToken(token, user.getRole().toString()));
     }
 
-    public User getUserByEmail(String email) {
-        User user = this.userRepo.findByEmail(email).orElse(null);
-        ApiAssert.notFoundIf(user == null, "Email is not registered");
-        return user;
+    public ResponseEntity<?> logoutUser(UserDto userDto) {
+        var user = this.userRepo.findByEmail(userDto.getEmail()).orElse(null);
+        ApiAssert.unAuthorizedIf(user == null , "User not found");
+        user.setStatus(UserStatus.offline);
+        this.userRepo.save(user);
+        return ResponseBuilder.success("Logout successful", null);
     }
 
     public User getUserById(long id) {

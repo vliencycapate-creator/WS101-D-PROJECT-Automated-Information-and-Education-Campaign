@@ -4,6 +4,7 @@ import com.example.backend_gradle.iec_server.dtos.flyer.FlyerImageRequest;
 import com.example.backend_gradle.iec_server.dtos.flyer.FlyerRequest;
 import com.example.backend_gradle.iec_server.dtos.user.UserDto;
 import com.example.backend_gradle.iec_server.entities.Flyer;
+import com.example.backend_gradle.iec_server.entities.enums.FlyerStatus;
 import com.example.backend_gradle.iec_server.http.ResponseBuilder;
 import com.example.backend_gradle.iec_server.exceptions.ApiAssert;
 import com.example.backend_gradle.iec_server.mappers.FlyerMapper;
@@ -98,7 +99,7 @@ public class FlyerService {
     @Transactional
     public ResponseEntity<?> deleteFlyerById(long id, UserDto userDto) {
         var flyer = this.getFlyerByIdForUsers(id, userDto.getId());
-        this.recordService.updateRecordByFlyerId(flyer, "deleted");
+        this.recordService.updateRecordByFlyerId(flyer, FlyerStatus.deleted);
         this.imageService.deleteUploadedImages(flyer);
         this.flyerRepo.delete(flyer);
         return ResponseBuilder.success("Flyer deleted successful", null);
@@ -119,14 +120,14 @@ public class FlyerService {
             this.imageService.deleteImagesFromListId(flyer, flyerImageRequest.getImagesToDel());
         }
 
-        this.recordService.updateRecordByFlyerId(flyer, "pending");
+        this.recordService.updateRecordByFlyerId(flyer, FlyerStatus.pending);
         return ResponseBuilder.success("Flyer updated successful", null);
     }
 
     public ResponseEntity<?> updateFlyerStatusById(long id, String status) {
         var flyer = this.flyerRepo.findById(id).orElse(null);
         ApiAssert.notFoundIf(flyer == null, "Flyer not found");
-        this.recordService.updateRecordByFlyerId(flyer, status);
+        this.recordService.updateRecordByFlyerId(flyer, FlyerStatus.valueOf(status));
         return ResponseBuilder.success("Flyer " + status + " successful", null);
     }
 

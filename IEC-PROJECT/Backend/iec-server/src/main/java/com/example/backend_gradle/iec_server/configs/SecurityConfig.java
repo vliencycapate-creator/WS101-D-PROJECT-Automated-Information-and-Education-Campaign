@@ -55,19 +55,14 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-
-                        .requestMatchers("/auth/login", "/auth/register").permitAll()
-
+                        .requestMatchers("/iec-server/api/v1/login", "/iec-server/api/v1/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/iec-server/api/v1/flyers").permitAll()
                         .requestMatchers(HttpMethod.GET, "/iec-server/api/v1/flyers/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/iec-server/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/iec-server/api/v1/users").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/iec-server/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/iec-server/api/v1/**").hasAnyRole("ADMIN", "FACULTY")
                         .requestMatchers(HttpMethod.DELETE, "/iec-server/api/v1/**").hasAnyRole("ADMIN", "FACULTY")
                         .requestMatchers(HttpMethod.PUT, "/iec-server/api/v1/**").hasAnyRole("ADMIN")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-
                         .anyRequest().authenticated()
                 ).exceptionHandling(ex -> ex
                         .authenticationEntryPoint((request, response, authException) -> {

@@ -1,5 +1,6 @@
 package com.example.backend_gradle.iec_server.entities;
 
+import com.example.backend_gradle.iec_server.entities.enums.FlyerStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,10 +24,11 @@ public class Record {
     @Column(name = "flyer_id")
     private long flyer_id;
 
-    @Column(name = "status", insertable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private FlyerStatus status;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "modified_at", insertable = false, updatable = false)
@@ -37,4 +39,8 @@ public class Record {
     @JsonIgnore
     private Flyer flyer;
 
+    @PrePersist
+    void onCreate() {
+        if (status == null) status = FlyerStatus.pending;
+    }
 }

@@ -18,17 +18,20 @@ public class UserController {
     private final UserService userService;
     private final ValidationHelper validationHelper;
 
-    @PostMapping("/auth/register")
+    @PostMapping("/register")
     public ResponseEntity<?> registerUser(@ModelAttribute RegistrationRequest registrationRequest) {
         this.validationHelper.validate(registrationRequest);
         return this.userService.registerUser(registrationRequest);
     }
 
-    @PostMapping("/auth/login")
+    @PostMapping("/login")
     public ResponseEntity<?> loginUser(@ModelAttribute LoginRequest loginRequest) {
         this.validationHelper.validate(loginRequest);
         return this.userService.loginUser(loginRequest);
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser(@AuthenticationPrincipal UserDto user) { return this.userService.logoutUser(user); }
 
     @GetMapping("/users")
     public ResponseEntity<?> getUsers(@AuthenticationPrincipal UserDto user) { return this.userService.getAllUsers(user); }

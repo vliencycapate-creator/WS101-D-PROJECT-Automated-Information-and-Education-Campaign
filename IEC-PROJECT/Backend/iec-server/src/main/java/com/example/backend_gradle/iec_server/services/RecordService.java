@@ -2,6 +2,7 @@ package com.example.backend_gradle.iec_server.services;
 
 import com.example.backend_gradle.iec_server.entities.Flyer;
 import com.example.backend_gradle.iec_server.entities.Record;
+import com.example.backend_gradle.iec_server.entities.enums.FlyerStatus;
 import com.example.backend_gradle.iec_server.exceptions.ApiAssert;
 import com.example.backend_gradle.iec_server.repositories.RecordJpaRepository;
 import jakarta.transaction.Transactional;
@@ -29,9 +30,9 @@ public class RecordService {
     }
 
     @Transactional
-    public void updateRecordByFlyerId(Flyer flyer, String status) {
+    public void updateRecordByFlyerId(Flyer flyer, FlyerStatus status) {
         var record = this.getRecordById(flyer.getRecord().getId());
-        if (status.equalsIgnoreCase("deleted")) {
+        if (status.toString().equalsIgnoreCase("deleted")) {
             record.setFlyer(null);
         } else {
             record.setFlyer(flyer);
