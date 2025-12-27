@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IEC | Admin</title>
 
+    <!-- TOKEN CHECKER -->
+    <script src="/js/api/token_checker.js"></script>
+
     <!-- CSS LINKS -->
-    <link rel="stylesheet" href="../css/colors.css">
-    <link rel="stylesheet" href="../css/component/header.css">
-    <link rel="stylesheet" href="../css/component/sidebar.css">
-    
     <link rel="stylesheet" href="../css/admin/flyers.css">
 </head>
 
@@ -17,11 +17,12 @@
 
     <header class="header">
         <div class="title-box">
-            <!-- <div id="menu-icon" class="menu-icon">
+            <div id="menu-icon" class="menu-icon">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div> -->
+            </div>
+
             <div class="logo">IEC</div>
             <p>
                 Automated <br>
@@ -32,12 +33,12 @@
 
         <!-- NAV LINKS -->
         <nav class="nav-links">
-            <a href="./dashboard.html">Dashboard</a>
-            <a href="./flyer-management.html">Flyers</a>
-            <a href="./pending-management.html">Pending Flyers</a>
-            <a href="./declined-flyers.html" class="active">Declined Flyers</a>
-            <a href="./user-management.html">Users</a>
-            <a href="./feedback-management.html">Feedbacks</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="flyer-management.html">Flyers</a>
+            <a href="pending-management.html">Pending Flyers</a>
+            <a href="declined-flyers.html" class="active">Declined Flyers</a>
+            <a href="user-management.html">Users</a>
+            <a href="feedback-management.html">Feedbacks</a>
         </nav>
 
         <!-- AUTH BOX -->
@@ -50,12 +51,12 @@
     <div id="sidebar-overlay" class="sidebar-overlay"></div>
     <aside id="sidebar" class="sidebar">
         <nav class="sidebar-links">
-            <a href="./dashboard.html">Dashboard</a>
-            <a href="./flyer-management.html">Flyers</a>
-            <a href="./pending-management.html">Pending Flyers</a>
-            <a href="./declined-flyers.html" class="active">Declined Flyers</a>
-            <a href="./user-management.html">Users</a>
-            <a href="./feedback-management.html">Feedbacks</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="flyer-management.html">Flyers</a>
+            <a href="pending-management.html">Pending Flyers</a>
+            <a href="declined-flyers.html" class="active">Declined Flyers</a>
+            <a href="user-management.html">Users</a>
+            <a href="feedback-management.html">Feedbacks</a>
         </nav>
     </aside>
 
@@ -67,10 +68,10 @@
                 <div class="search-bar-container">
                     <select name="category" id="category">
                         <option value="all">All</option>
-                        <option value="nature preservation">Nature Preservation</option>
-                        <option value="disaster preparedness">Disaster Preparedness</option>
-                        <option value="climate policy">Climate Policy</option>
-                        <option value="awareness and education">Awareness &amp; Education</option>
+                        <option value="Nature Preservation">Nature Preservation</option>
+                        <option value="Disaster Preparedness">Disaster Preparedness</option>
+                        <option value="Climate Policy">Climate Policy</option>
+                        <option value="Awareness And Education">Awareness &amp; Education</option>
                     </select>
                     <input type="text" name="search" id="search-bar" placeholder="Search">
                     <button id="search-btn">Search</button>
@@ -84,9 +85,10 @@
                 <div id="declined-flyer-list" class="flyer-list"></div>
             </div>
         </section>
+        <div id="update-flyer-view"></div>
     </div>
 
-
+    <script type="module" src="../js/components/header.js"></script>
     <script type="module" src="../js/admin/declined-management.js"></script>
 </body>
 

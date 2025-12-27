@@ -1,3 +1,8 @@
+@import url("/css/colors.css");
+@import url("/css/component/header.css");
+@import url("/css/component/sidebar.css");
+@import url("/js/section/popFlyer.css");
+
 * {
   margin: 0;
   padding: 0;
@@ -16,9 +21,18 @@ body {
 }
 
 .container {
+  /* width: 100%;
+  min-height: 98vh;
+  padding-top: 130px; */
+  
   width: 100%;
   min-height: 98vh;
-  padding-top: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding-top: 60px;
+  padding-bottom: 20px;
 }
 
 .container section {
@@ -86,6 +100,162 @@ body {
   background: var(--accent-color);
 }
 
+/* UPDATE FLYER FORM */
+/* .container {
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding-top: 50px;
+  padding-bottom: 20px;
+} */
+
+.container .wrap {
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  align-items: start;
+  gap: 20px;
+  padding-top: 40px;
+  margin-right: auto;
+}
+
+.container .wrap .panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-color);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.container .wrap .panel h3 {
+  font-size: 20px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+}
+
+.container .wrap .panel p {
+  color: var(--muted-color);
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.container .wrap .panel label {
+  font-size: .9rem;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.container .wrap .panel select,
+.container .wrap .panel input[type="text"],
+.container .wrap .panel textarea {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.container .wrap .panel textarea {
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+}
+
+.container .wrap .panel .post-btn-box {
+  margin-top: 40px;
+}
+
+.container .wrap .panel .post-btn-box .postBtn {
+  width: 235px;
+  font-size: .9rem;
+  font-weight: bold;
+  color: #fff;
+  padding: 5px 8px;
+  border: none;
+  border-radius: 6px;
+  background: blue;
+  cursor: pointer;
+}
+
+.container .wrap .panel .post-btn-box .postBtn:hover {
+  background: darkblue;
+}
+
+/* right column (preview + posted flyers) */
+.container .wrap .right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container .wrap .right .preview {
+  max-width: 100%;
+  min-width: 450px;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-color);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.container .wrap .right .preview .livePreview {
+  display: flex;
+  flex-direction: column;
+}
+
+.container .wrap .right .preview .livePreview .images{
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.container .wrap .right .preview .livePreview .images img {
+  max-width: 100%;
+  min-width: 200px;
+  height: 200px;
+}
+
+.container .wrap .right .preview .livePreview .images .carousel {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container .wrap .right .preview .livePreview .images .carousel .carousel-btn {
+  width: 20px;
+  height: 40px;
+  font-size: 2.5rem;
+  margin: 8px;
+  border: none;
+  background: transparent;
+  text-align: center;
+  cursor: pointer;
+}
+
+.container .wrap .right .preview .livePreview .pvCategory strong {
+  font-size: .8rem;
+}
+
+.container .wrap .right .preview .livePreview #pvDesc p {
+  font-size: .9rem;
+  white-space: pre-wrap;
+  margin-top: 20px;
+}
+
 /* NO FLYERS NOTICE */
 .container section .section-box .no-flyers-notice {
   width: 100%;
@@ -103,6 +273,7 @@ body {
   flex-wrap: wrap;
   gap: 40px;
   margin-top: 10px;
+  padding-top: 60px;
 }
 
 .flyer-list .flyerWrapper {

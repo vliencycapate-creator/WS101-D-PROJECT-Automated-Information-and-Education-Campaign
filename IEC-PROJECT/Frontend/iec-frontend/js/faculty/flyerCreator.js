@@ -6,8 +6,6 @@ const category = document.getElementById("category");
 const titleInput = document.getElementById("title");
 const descInput = document.getElementById("description");
 
-const addDescBtn = document.getElementById("addDesc");
-const previewBtn = document.getElementById("previewBtn");
 const postBtn = document.getElementById("postBtn");
 
 // PREVIEW ELEMENTS
@@ -16,33 +14,11 @@ const pvCategory = document.querySelector("#livePreview .pvCategory");
 const pvTitle = document.getElementById("pvTitle");
 const pvDesc = document.getElementById("pvDesc");
 
-// Store descriptions
-let descriptions = [];
+descInput.addEventListener("input", function() {
+    this.style.height = "auto";
+    this.style.height = this.scrollHeight + 'px';
+})
 
-
-// ADD DESCRIPTION
-addDescBtn.addEventListener("click", () => {
-    const text = descInput.value.trim();
-    if (text === "") {
-        alert("Description cannot be empty.");
-        return;
-    }
-
-    descriptions.push(text);
-    descInput.value = "";
-
-    updatePreviewDescriptions();
-});
-
-// PREVIEW BUTTON
-previewBtn.addEventListener("click", () => {
-    updatePreviewImages();
-    updatePreviewCategory();
-    updatePreviewTitle();
-    updatePreviewDescriptions();
-});
-
-// PREVIEW FUNCTIONS
 
 // ---- Preview Images ----
 function updatePreviewImages() {
@@ -102,45 +78,35 @@ function updatePreviewImages() {
     pvImages.appendChild(carousel);
 }
 
+// ---- Preview Title ----
+function updatePreviewTitle() {
+    pvTitle.replaceChildren();
+
+    const h3 = document.createElement("h3");
+    const value = titleInput.value.trim();
+
+    h3.textContent = value ? value : "No title";
+
+    pvTitle.appendChild(h3);
+}
 
 // ---- Preview Category ----
 function updatePreviewCategory() {
     pvCategory.replaceChildren();
 
     const value = category.value.trim();
-    const p = document.createElement("p");
     const strong = document.createElement("strong");
 
+    strong.textContent = value ? value : "No Category";
 
-    if (!value) {
-        p.textContent = "No category selected";
-    } else {
-        p.textContent = "Category: " + `${strong.textContent = value}`;
-    }
-
-    pvCategory.appendChild(p);
+    pvCategory.appendChild(strong);
 }
-
-
-// ---- Preview Title ----
-function updatePreviewTitle() {
-    pvTitle.replaceChildren();
-
-    const p = document.createElement("p");
-    const value = titleInput.value.trim();
-
-    p.textContent = value ? value : "No title";
-
-    pvTitle.appendChild(p);
-}
-
 
 // ---- Preview Descriptions ----
 function updatePreviewDescriptions() {
     pvDesc.replaceChildren();
 
-    // if (descriptions.length === 0) {
-    if (descInput.length === 0) {
+    if (descInput.value.length === 0) {
         const empty = document.createElement("p");
         empty.textContent = "No description yet";
         pvDesc.appendChild(empty);
@@ -148,14 +114,8 @@ function updatePreviewDescriptions() {
     }
 
     const p = document.createElement("p");
-    p.textContent = descInput.value.trim();
+    p.textContent = descInput.value;
     pvDesc.appendChild(p);
-
-    // descriptions.forEach((d, i) => {
-    //     const p = document.createElement("p");
-    //     p.textContent = d;
-    //     pvDesc.appendChild(p);
-    // });
 }
 
 // LIVE UPDATE WHILE TYPING
@@ -178,9 +138,9 @@ postBtn.addEventListener("click", async () => {
         alert("Title is required.");
         return;
     }
-    // if (descriptions.length === 0) {
+
     if (descInput.length === 0) {
-        alert("Add at least 1 description.");
+        alert("Please add a description.");
         return;
     }
 
@@ -191,7 +151,6 @@ postBtn.addEventListener("click", async () => {
 
     formData.append("category", category.value);
     formData.append("title", titleInput.value.trim());
-    // formData.append("descriptions", JSON.stringify(descriptions));
     formData.append("description", descInput.value.trim());
 
     try {
@@ -213,7 +172,9 @@ postBtn.addEventListener("click", async () => {
         }
 
         alert("Flyer posted successfully!");
-        window.location.href = "/faculty/dashboard.html";
+        // window.location.href = "../admin/dashboard.html";
+        document.getElementById('flyer-creator').style.display = "none";
+        document.getElementById('dashboard').style.display = "flex";
         resetCreator();
 
     } catch (error) {
@@ -229,7 +190,6 @@ function resetCreator() {
     category.value = "";
     titleInput.value = "";
     descInput.value = "";
-    descriptions = [];
 
     pvImages.replaceChildren();
     pvCategory.replaceChildren();

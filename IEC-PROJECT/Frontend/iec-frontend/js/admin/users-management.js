@@ -3,13 +3,13 @@ import { apiGetAuth } from "../api/api.js";
 // FETCH ALL USERS
 async function fetchUsers() {
     try {
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
 
-        if (!token) {
-            alert("No token found — redirecting to login...");
-            window.location.href = "/index.html";
-            return;
-        }
+        // if (!token) {
+        //     alert("No token found — redirecting to login...");
+        //     window.location.href = "/index.html";
+        //     return;
+        // }
 
         // const users = await response.json();
         const users = await apiGetAuth("users"); // GET /users
@@ -17,9 +17,31 @@ async function fetchUsers() {
         // Handle invalid token or expired token
         if (users.status === 401) {
             alert("Session expired. Please login again.");
-            localStorage.removeItem("token");
-            window.location.href = "/index.html";
-            return;
+            try {
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                    alert("No token found — redirecting to login...");
+                    window.location.href = "/index.html";
+                    return;
+                }
+
+                // const users = await response.json();
+                const response = apiLogout("logout"); // GET /users
+
+                // Handle invalid token or expired token
+                if (response.status === 401) {
+                    alert("Session expired. Please login again.");
+                    localStorage.removeItem("token");
+                    window.location.href = "/index.html";
+                    return;
+                }
+
+                localStorage.removeItem("token");
+                window.location.href = "/index.html";
+            } catch (error) {
+                console.error("Fetch users error:", error);
+            }
         }
 
         const allUsers = users.data || [];
@@ -67,7 +89,20 @@ function createUserElem(user) {
     const delBtn = document.createElement("button");
     delBtn.className = "deleteBtn";
     delBtn.textContent = "Delete";
-    delBtn.onclick = () => deleteUser(user.id);
+    delBtn.addEventListener("click", async () => {
+        const confirmDelete = confirm("Are you sure you want to delete this user?");
+        if (!confirmDelete) return { cancelled: true };
+
+        const result = await apiDelete(`users?id=${user.id}`);
+
+        if (!result || result.cancelled) return;
+
+        if (result.success === true || result.status === 200) {
+            alert(result.message || "User deleted successfully!");
+        } else {
+            alert(result.message || "Failed to delete user.");
+        }
+    });
 
     tdActions.appendChild(editBtn);
     tdActions.appendChild(delBtn);
@@ -87,5 +122,6 @@ document.getElementById("logoutButton").onclick = () => {
     localStorage.removeItem("token");
     window.location.href = "/index.html";
 };
+
 
 fetchUsers();

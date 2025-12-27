@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IEC | Faculty</title>
 
-    <!-- CSS LINKS -->
-    <link rel="stylesheet" href="../css/colors.css">
-    <link rel="stylesheet" href="../css/component/header.css">
-    <link rel="stylesheet" href="../css/component/sidebar.css">
+    <!-- TOKEN CHECKER -->
+    <script src="/js/api/token_checker.js"></script>
 
+    <!-- CSS LINKS -->
     <link rel="stylesheet" href="../css/faculty/flyers.css">
 </head>
 
@@ -17,11 +17,12 @@
 
     <header class="header">
         <div class="title-box">
-            <!-- <div id="menu-icon" class="menu-icon">
+            <div id="menu-icon" class="menu-icon">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div> -->
+            </div>
+            
             <div class="logo">IEC</div>
             <p>
                 Automated <br>
@@ -32,11 +33,11 @@
 
         <!-- NAV LINKS -->
         <nav class="nav-links">
-            <a href="./dashboard.html">Dashboard</a>
-            <a href="./flyer-management.html" class="active">Flyers</a>
-            <a href="./pending-management.html">Pending Flyers</a>
-            <a href="./declined-flyers.html">Declined Flyers</a>
-            <a href="./feedback-management.html">Feedbacks</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="flyer-management.html" class="active">Flyers</a>
+            <a href="pending-management.html">Pending Flyers</a>
+            <a href="declined-flyers.html">Declined Flyers</a>
+            <a href="feedback-management.html">Feedbacks</a>
         </nav>
 
         <!-- AUTH BOX -->
@@ -49,12 +50,11 @@
     <div id="sidebar-overlay" class="sidebar-overlay"></div>
     <aside id="sidebar" class="sidebar">
         <nav class="sidebar-links">
-            <a href="./dashboard.html">Dashboard</a>
-            <a href="./flyer-management.html" class="active">Flyers</a>
-            <a href="./pending-management.html">Pending Flyers</a>
-            <a href="./declined-flyers.html">Declined Flyers</a>
-            <a href="./user-management.html">Users</a>
-            <a href="./feedback-management.html">Feedbacks</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="flyer-management.html" class="active">Flyers</a>
+            <a href="pending-management.html">Pending Flyers</a>
+            <a href="declined-flyers.html">Declined Flyers</a>
+            <a href="feedback-management.html">Feedbacks</a>
         </nav>
     </aside>
 
@@ -77,15 +77,17 @@
             </div>
 
             <div class="section-box">
+                <!-- <div id="update-flyer-view"></div> -->
                 <div id="no-flyers-notice" class="no-flyers-notice">
                     <h2>No Available Approved Flyers</h2>
                 </div>
                 <div id="approved-flyer-list" class="flyer-list"></div>
             </div>
         </section>
+        <div id="update-flyer-view"></div>
     </div>
 
-
+    <script type="module" src="../js/components/header.js"></script>
     <script type="module" src="/js/faculty/flyer_management.js"></script>
 </body>
 

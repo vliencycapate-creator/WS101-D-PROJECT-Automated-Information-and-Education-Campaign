@@ -1,3 +1,7 @@
+@import url("/css/colors.css");
+@import url("/css/component/header.css");
+@import url("/css/component/sidebar.css");
+
 * {
   margin: 0;
   padding: 0;
@@ -7,27 +11,32 @@
 
 html,
 body {
-  height: 100%;
+  height: 100vh;
 }
 
 body {
+  width: 100%;
   background: var(--bg-color);
   color: var(--text-color);
 }
 
 .container {
+  width: 100%;
   min-height: 90vh;
+  display: flex;
+  justify-content: center;
   padding-top: 50px;
   padding-bottom: 20px;
 }
 
 .container .wrap {
-  max-width: 1100px;
+  width: 90%;
   margin: 0 auto;
   display: none;
   grid-template-columns: 1fr 460px;
   align-items: start;
-  padding-top: 20px;
+  gap: 20px;
+  padding-top: 40px;
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -39,8 +48,6 @@ body {
   padding: 18px;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
 .container .wrap .panel h3 {
@@ -48,6 +55,7 @@ body {
   margin: 0 0 12px 0;
   font-weight: 700;
 }
+
 .container .wrap .panel p {
   color: var(--muted-color);
   font-size: 13px;
@@ -61,7 +69,8 @@ body {
 }
 
 .container .wrap .panel select,
-.container .wrap .panel input[type="text"] {
+.container .wrap .panel input[type="text"],
+.container .wrap .panel textarea {
   width: 100%;
   background: #fff;
   border: 1px solid #ccc;
@@ -71,33 +80,14 @@ body {
   font-size: 13px;
 }
 
-.container .wrap .panel .flyer-action-box {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.container .wrap .panel .flyer-action-box .addDescBtn, 
-.container .wrap .panel .flyer-action-box .livePreviewBtn {
-  font-size: .9rem;
-  font-weight: bold;
-  color: #fff;
-  padding: 5px 8px;
-  border: none;
-  border-radius: 6px;
-  background: #07aa6d;
-  cursor: pointer;
-}
-
-.container .wrap .panel .flyer-action-box .addDescBtn:hover, 
-.container .wrap .panel .flyer-action-box .livePreviewBtn:hover {
-  background: #03744a;
+.container .wrap .panel textarea {
+  width: 100%;
+  resize: none;
+  overflow: hidden;
 }
 
 .container .wrap .panel .post-btn-box {
-  margin-top: 10px;
+  margin-top: 40px;
 }
 
 .container .wrap .panel .post-btn-box .postBtn {
@@ -120,42 +110,50 @@ body {
 .container .wrap .right {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: center;
 }
 
-.container .wrap .right .panel {
-  overflow: auto;
-}
-
-.container .wrap .right .panel .livePreview {
+.container .wrap .right .preview {
+  max-width: 100%;
+  min-width: 450px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  background: var(--card-color);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.container .wrap .right .panel .livePreview .images{
+.container .wrap .right .preview .livePreview {
+  display: flex;
+  flex-direction: column;
+}
+
+.container .wrap .right .preview .livePreview .images{
   width: 100%;
   height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
   overflow: hidden;
 }
 
-.container .wrap .right .panel .livePreview .images img {
+.container .wrap .right .preview .livePreview .images img {
   max-width: 100%;
   min-width: 200px;
   height: 200px;
 }
 
-.container .wrap .right .panel .livePreview .images .carousel {
+.container .wrap .right .preview .livePreview .images .carousel {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.container .wrap .right .panel .livePreview .images .carousel .carousel-btn {
+.container .wrap .right .preview .livePreview .images .carousel .carousel-btn {
   width: 20px;
   height: 40px;
   font-size: 2.5rem;
@@ -166,13 +164,23 @@ body {
   cursor: pointer;
 }
 
+.container .wrap .right .preview .livePreview .pvCategory strong {
+  font-size: .8rem;
+}
 
+.container .wrap .right .preview .livePreview #pvDesc p {
+  font-size: .9rem;
+  white-space: pre-wrap;
+  margin-top: 20px;
+}
 
-/* Dashboard */
+/* ------------------ Dashboard ------------------ */
 .dashboard {
-  max-width: 1200px;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
   margin: 22px auto;
-  padding: 0 20px;
+  padding: 20px;
 }
 
 .dashboard .heading {
@@ -201,26 +209,29 @@ body {
 }
 
 .stats-container {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 18px;
   margin-bottom: 22px;
 }
-.stat-card {
+
+.stats-container .stat-card {
+  width: 100%;
+  height: 100px;
   background: var(--card-color);
   padding: 16px;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   text-align: center;
 }
-.stat-card.highlight {
-  border: 2px solid rgba(74, 87, 255, 0.08);
-}
-.stat-card h3 {
+
+.stats-container .stat-card h3 {
   margin: 0 0 8px;
   color: var(--muted-color);
 }
-.stat-card p {
+
+.stats-container .stat-card p {
   margin: 0;
   font-size: 1.6rem;
   font-weight: 800;
@@ -235,7 +246,7 @@ body {
   overflow: auto;
 }
 table {
-  width: 100%;
+  width: 85%;
   border-collapse: collapse;
   min-width: 700px;
 }
@@ -283,43 +294,6 @@ tbody td .deleteBtn {
 
 tbody td .deleteBtn:hover {
   background: rgb(185, 2, 2);
-}
-
-/* Flyer grid for review (pending, declined) */
-.flyer-review {
-  max-width: 1200px;
-  margin: 22px auto;
-  padding: 0 20px;
-}
-
-.flyer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-  margin-top: 12px;
-}
-
-.review-card {
-  background: var(--card-coor);
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-}
-
-.review-card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.review-card .body {
-  padding: 12px;
-}
-
-.review-card .meta {
-  color: var(--muted-color);
-  font-size: 0.9rem;
-  margin-bottom: 8px;
 }
 
 .actions {
@@ -371,22 +345,49 @@ tbody td .deleteBtn:hover {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .stats-container {
-    grid-template-columns: repeat(2, 1fr);
+  .container .wrap {
+    grid-template-columns: 1fr;
   }
+
+  .panel {
+    height: fit-content;
+    grid-row: 2;
+  }
+
+  .preview {
+    width: 100%;
+    grid-row: 1;
+  }
+
+
+
+  .dashboard {
+    width: 100%;
+  }
+
+  /* .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  } */
+
   .review-card img {
     height: 140px;
   }
 }
-@media (max-width: 420px) {
+@media (max-width: 425px) {
   .header nav {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
   }
+
+  .stats-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   .table-container {
     overflow-x: auto;
   }
+
   table {
     min-width: 640px;
   }

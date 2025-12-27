@@ -1,0 +1,195 @@
+.fullview-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.6);
+    z-index: 999;
+}
+
+.fullview-popup {
+    position: fixed;
+    width: 90%;
+    max-width: 1200px;
+    height: 90%;
+    max-height: 90vh;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+    z-index: 1000;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+}
+
+/* CLOSE BUTTON */
+.fullview-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.fullview-close-btn span {
+  display: block;
+  height: 3px;
+  background: red;
+  margin: 5px 0;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+.fullview-close-btn span:nth-child(1) {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.fullview-close-btn span:nth-child(2) {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+
+
+
+.fv-flyer-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.fv-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-inner img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.carousel-inner img.active {
+    display: block;
+}
+
+.carousel-prev,
+.carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.carousel-prev {
+    left: 5px;
+}
+
+.carousel-next {
+    right: 5px;
+}
+
+
+.fv-card-content {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.fv-card-content .fv-text-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.fv-text-content h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+.fv-text-content strong {
+    font-size: 1.2rem;
+    margin-top: 40px;
+}
+
+.fv-text-content > .fv-card-description {
+    font-size: 1rem;
+    text-indent: 40px;
+    margin-top: 20px;
+}
+
+.fv-card-content .author_container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.author_container > p {
+    font-size: .9rem;
+}
+
+
+@media (max-width: 768px) {
+    .fullview-popup {
+        height: fit-content;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .fv-flyer-card {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fv-carousel {
+        width: 90%;
+        height: 400px;
+    }
+
+    .fv-card-content{
+        gap: 100px;
+    }
+
+    .fv-card-content .author_container {
+        justify-content: start;
+        gap: 20px;
+    }
+}
+
+
+@media (max-width: 425px) {
+    .fv-carousel {
+        width: 100%;
+        height: 300px;
+        margin-top: 30px;
+    }
+
+    .fv-card-content .author_container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

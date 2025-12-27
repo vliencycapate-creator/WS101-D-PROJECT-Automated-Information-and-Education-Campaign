@@ -1,18 +1,19 @@
 import { apiGetAuth } from "../api/api.js";
 import { createFlyerElems } from "./createElement/facultyCreateElement.js";
+import { apiLogout } from "../api/api.js";
 
 let allFlyers = [];
 
 // FETCH ALL APPROVED FLYERS
 async function fetchFlyers() {
     try {
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
 
-        if (!token) {
-            alert("No token found — redirecting to login...");
-            window.location.href = "/index.html";
-            return;
-        }
+        // if (!token) {
+        //     alert("No token found — redirecting to login...");
+        //     window.location.href = "/index.html";
+        //     return;
+        // }
 
         const flyers = await apiGetAuth("myflyers?status=approved");
 
@@ -82,8 +83,32 @@ document.getElementById("category").addEventListener("change", searchFlyers);
 
 // LOGOUT
 document.getElementById("logoutButton").onclick = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/index.html";
+
+    try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            alert("No token found — redirecting to login...");
+            window.location.href = "/index.html";
+            return;
+        }
+
+        // const users = await response.json();
+        const response = apiLogout("logout"); // GET /users
+
+        // Handle invalid token or expired token
+        if (response.status === 401) {
+            alert("Session expired. Please login again.");
+            localStorage.removeItem("token");
+            window.location.href = "/index.html";
+            return;
+        }
+
+        localStorage.removeItem("token");
+        window.location.href = "/index.html";
+    } catch (error) {
+        console.error("Fetch users error:", error);
+    }
 };
 
 

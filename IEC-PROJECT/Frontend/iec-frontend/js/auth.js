@@ -1,4 +1,4 @@
-import { apiPost, apiGetAuth } from "./api/api.js";
+import { apiPost } from "./api/api.js";
 
 // OPEN AUTH MODAL
 function openAuth(formId) {
@@ -10,17 +10,6 @@ function openAuth(formId) {
     // Switch to selected form
     document.querySelectorAll(".auth-form").forEach(f => f.classList.remove("active"));
     document.getElementById(formId).classList.add("active");
-}
-
-// CLOSE AUTH MODAL
-function closeAuth() {
-    const auth = document.getElementById("auth-container");
-    auth.classList.remove("show");
-    auth.classList.add("hide");
-
-    setTimeout(() => {
-        auth.style.display = "none";
-    }, 250);
 }
 
 // SWITCH LOGIN / REGISTER FORM
@@ -44,10 +33,6 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
         }
 
         const currUser = result.data;
-
-        alert(currUser.token);
-        alert(currUser.role[0]);
-        alert(currUser.username);
 
         console.log(currUser.token);
         
@@ -109,13 +94,29 @@ function showMessage(id, message, type) {
     if (!box) return;
 
     box.textContent = message;
-    box.style.color = type === "success" ? "limegreen" : "#ff4444";
+    // box.style.color = type === "success" ? "limegreen" : "#ff4444";
+    box.style.color = type === "success" ? "#fff" : "#fff";
     box.style.border = type === "success" ? "1px solid limegreen" : "1px solid #ff4444";
+    box.style.background = type === "success" ? "limegreen" : "#ff4444";
     box.style.display = "flex";
 
     setTimeout(() => {
         box.style.display = "none";
     }, 2000);
+}
+
+// CLOSE AUTH MODAL
+function closeAuth() {
+    const auth = document.getElementById("auth-container");
+    auth.classList.remove("show");
+    auth.classList.add("hide");
+
+    document.querySelector('#loginForm').reset();
+    document.querySelector('#registerForm').reset();
+
+    setTimeout(() => {
+        auth.style.display = "none";
+    }, 250);
 }
 
 // Export functions for inline onclick if needed

@@ -8,22 +8,44 @@ let allFlyers = [];
 // FETCH ALL PENDING FLYERS
 async function fetchFlyers() {
     try {
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
 
-        if (!token) {
-            alert("No token found — redirecting to login...");
-            window.location.href = "/index.html";
-            return;
-        }
+        // if (!token) {
+        //     alert("No token found — redirecting to login...");
+        //     window.location.href = "/index.html";
+        //     return;
+        // }
 
-        const flyers = await apiGetAuth("flyers");
+        const flyers = await apiGetAuth("flyers?status=pending");
 
         // Handle invalid token or expired token
         if (flyers.status === 401) {
             alert("Session expired. Please login again.");
-            localStorage.removeItem("token");
-            window.location.href = "/index.html";
-            return;
+            try {
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                    alert("No token found — redirecting to login...");
+                    window.location.href = "/index.html";
+                    return;
+                }
+
+                // const users = await response.json();
+                const response = apiLogout("logout"); // GET /users
+
+                // Handle invalid token or expired token
+                if (response.status === 401) {
+                    alert("Session expired. Please login again.");
+                    localStorage.removeItem("token");
+                    window.location.href = "/index.html";
+                    return;
+                }
+
+                localStorage.removeItem("token");
+                window.location.href = "/index.html";
+            } catch (error) {
+                console.error("Fetch users error:", error);
+            }
         }
 
         const flyerList = flyers.data; // store flyers for searching
@@ -31,20 +53,18 @@ async function fetchFlyers() {
         // Render all flyers
         document.getElementById("pending-flyer-list").innerHTML = ""; // clear first
 
-        const pendingFlyers = flyerList.filter(f => f.record.status === "pending");
-
-        if (pendingFlyers.length > 0) {
+        if (flyerList.length > 0) {
             document.getElementById("no-flyers-notice").style.display = "none";
             document.getElementById("pending-flyer-list").style.display = "flex";
         }
 
         // Display flyers
-        pendingFlyers.forEach(flyer => {
+        flyerList.forEach(flyer => {
             createFlyerElems(flyer, "pending-flyer-list");
         });
 
         // If you want a global list:
-        allFlyers = pendingFlyers;
+        allFlyers = flyerList;
     } catch (error) {
         console.error("Error:", error);
     }

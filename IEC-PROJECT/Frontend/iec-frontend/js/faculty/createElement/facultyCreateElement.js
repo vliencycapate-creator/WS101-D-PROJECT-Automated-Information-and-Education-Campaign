@@ -1,5 +1,7 @@
-import { apiApproveFlyer, apiDeclineFlyer, apiDeleteFlyer } from "../../api/api.js";
+import { apiDeclineFlyer, apiDelete } from "../../api/api.js";
 import { IMG_URL_BASE } from "../../api/base_api.js";
+import { flyerFullview } from "../../components/createFullview.js";
+import { openUpdateFlyer } from "../../components/updateFlyer.js";
 
 export function createFlyerElems(flyerData, listId) {
     const flyerContainer = document.getElementById(`${listId}`);
@@ -103,6 +105,9 @@ export function createFlyerElems(flyerData, listId) {
     const readMoreBtn = document.createElement('button');
     readMoreBtn.id = "read-more-btn";
     readMoreBtn.textContent = "Read more";
+    readMoreBtn.addEventListener('click', function () {
+        flyerFullview(flyerData);
+    });
 
     // Author container
     const author_container = document.createElement('div');
@@ -136,14 +141,38 @@ export function createFlyerElems(flyerData, listId) {
 
     cardWrapper.appendChild(flyerCard);
 
+
+
     if (flyerData.record.status === "approved") {
+        const actionBox = document.createElement('div');
+        actionBox.className = "action-box";
+
+        const updateBtn = document.createElement('button');
+        updateBtn.type = "button";
+        updateBtn.id = "update-btn";
+        updateBtn.className = "update-btn";
+        updateBtn.textContent = "Update";
+
+        updateBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Open the prefilled update form
+            openUpdateFlyer(flyerData);
+            document.getElementById('update-flyer-view').style.display = "flex";
+            document.getElementById('no-flyers-notice').style.display = "none";
+            document.getElementById('approved-flyer-list').style.display = "none";
+        });
+
         // Delete button
         const deleteBtn = document.createElement('button');
         deleteBtn.id = "delete-btn";
         deleteBtn.textContent = "Delete"
 
         deleteBtn.addEventListener("click", async () => {
-            const result = await apiDeleteFlyer(`flyers/${flyerData.id}`);
+            const confirmDelete = confirm("Are you sure you want to delete this flyer?");
+            if (!confirmDelete) return { cancelled: true };
+
+            const result = await apiDelete(`flyers/${flyerData.id}`);
 
             if (!result || result.cancelled) return;
 
@@ -153,29 +182,32 @@ export function createFlyerElems(flyerData, listId) {
                 alert(result.message || "Failed to delete flyer.");
             }
         });
-
-        cardWrapper.appendChild(deleteBtn);
+        
+        actionBox.appendChild(updateBtn);
+        actionBox.appendChild(deleteBtn);
+        cardWrapper.appendChild(actionBox);
     }
     else if (flyerData.record.status === "pending") {
-        // Approve & Decline buttons
+        // Update & Decline buttons
         const actionBox = document.createElement('div');
         actionBox.className = "action-box";
 
-        const approveBtn = document.createElement('button');
-        approveBtn.id = "update-btn";
-        approveBtn.textContent = "Update";
+        const updateBtn = document.createElement('button');
+        updateBtn.type = "button";
+        updateBtn.id = "update-btn";
+        updateBtn.className = "update-btn";
+        updateBtn.textContent = "Update";
 
-        approveBtn.addEventListener("click", async () => {
-            const result = await apiApproveFlyer(`flyers/${flyerData.id}`);
+        updateBtn.addEventListener("click", (e) => {
+            e.preventDefault();
 
-            if (!result || result.cancelled) return;
-
-            if (result.success === true) {
-                alert(result.message || "Flyer declined successfully!");
-            } else {
-                alert(result.message || "Failed to decline flyer.");
-            }
+            // Open the prefilled update form
+            openUpdateFlyer(flyerData);
+            document.getElementById('update-flyer-view').style.display = "flex";
+            document.getElementById('no-flyers-notice').style.display = "none";
+            document.getElementById('pending-flyer-list').style.display = "none";
         });
+
 
         const declineBtn = document.createElement('button');
         declineBtn.id = "cancel-btn";
@@ -193,24 +225,40 @@ export function createFlyerElems(flyerData, listId) {
             }
         });
 
-        actionBox.appendChild(approveBtn);
+        actionBox.appendChild(updateBtn);
         actionBox.appendChild(declineBtn);
         cardWrapper.appendChild(actionBox);
     }
     else if (flyerData.record.status === "declined") {
+        const actionBox = document.createElement('div');
+        actionBox.className = "action-box";
+
+        const updateBtn = document.createElement('button');
+        updateBtn.type = "button";
+        updateBtn.id = "update-btn";
+        updateBtn.className = "update-btn";
+        updateBtn.textContent = "Update";
+
+        updateBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Open the prefilled update form
+            openUpdateFlyer(flyerData);
+            document.getElementById('update-flyer-view').style.display = "flex";
+            document.getElementById('no-flyers-notice').style.display = "none";
+            document.getElementById('declined-flyer-list').style.display = "none";
+        });
+
         // Delete button
         const deleteBtn = document.createElement('button');
         deleteBtn.id = "delete-btn";
         deleteBtn.textContent = "Delete"
 
-        const declineIndicator = document.createElement("p");
-        declineIndicator.textContent = "Declined";
-        declineIndicator.className = "declinedIndicator";
-
-        flyerCard.appendChild(declineIndicator);
-
         deleteBtn.addEventListener("click", async () => {
-            const result = await apiDeleteFlyers(`flyers/${flyerData.id}`);
+            const confirmDelete = confirm("Are you sure you want to delete this flyer?");
+            if (!confirmDelete) return { cancelled: true };
+
+            const result = await apiDelete(`flyers/${flyerData.id}`);
 
             if (!result || result.cancelled) return;
 
@@ -220,8 +268,10 @@ export function createFlyerElems(flyerData, listId) {
                 alert(result.message || "Failed to delete flyer.");
             }
         });
-
-        cardWrapper.appendChild(deleteBtn);
+        
+        actionBox.appendChild(updateBtn);
+        actionBox.appendChild(deleteBtn);
+        cardWrapper.appendChild(actionBox);
     }
 
     // Add the card to the list
@@ -255,6 +305,3 @@ function setupCarousel(carousel) {
     prevBtn.addEventListener('click', showPrevImage);
     nextBtn.addEventListener('click', showNextImage);
 }
-
-
-

@@ -1,3 +1,9 @@
+@import url("/css/colors.css");
+@import url("/css/component/header.css");
+@import url("/css/component/sidebar.css");
+@import url("/css/component/footer.css");
+@import url("/css/auth.css");
+
 * {
   margin: 0;
   padding: 0;

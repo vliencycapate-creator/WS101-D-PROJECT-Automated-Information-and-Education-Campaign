@@ -1,51 +1,68 @@
 import { apiGetAuth } from "../api/api.js";
-import { createFlyerElems } from "./createElement/createElement.js";
-
-// const IMG_URL_BASE = "http://192.168.68.50/iec-server/";
+import { createFlyerElems } from "./createElement/adminCreateElement.js";
 
 let allFlyers = [];
 
 // FETCH ALL APPROVED FLYERS
 async function fetchFlyers() {
     try {
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
 
-        if (!token) {
-            alert("No token found — redirecting to login...");
-            window.location.href = "/index.html";
-            return;
-        }
+        // if (!token) {
+        //     alert("No token found — redirecting to login...");
+        //     window.location.href = "/index.html";
+        //     return;
+        // }
 
-        const flyers = await apiGetAuth("flyers");
+        const flyers = await apiGetAuth("flyers?status=approved");
 
         // Handle invalid token or expired token
         if (flyers.status === 401) {
             alert("Session expired. Please login again.");
-            localStorage.removeItem("token");
-            window.location.href = "/index.html";
-            return;
+            try {
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                    alert("No token found — redirecting to login...");
+                    window.location.href = "/index.html";
+                    return;
+                }
+
+                // const users = await response.json();
+                const response = apiLogout("logout"); // GET /users
+
+                // Handle invalid token or expired token
+                if (response.status === 401) {
+                    alert("Session expired. Please login again.");
+                    localStorage.removeItem("token");
+                    window.location.href = "/index.html";
+                    return;
+                }
+
+                localStorage.removeItem("token");
+                window.location.href = "/index.html";
+            } catch (error) {
+                console.error("Fetch users error:", error);
+            }
         }
 
         const flyerList = flyers.data; // store flyers for searching
-        // document.getElementById("totalflyers").textContent = flyers.size;
 
         // Render all flyers
         document.getElementById("approved-flyer-list").innerHTML = ""; // clear first
 
-        const approvedFlyers = flyerList.filter(f => f.record.status === "approved");
-
-        if (approvedFlyers.length > 0) {
+        if (flyerList.length > 0) {
             document.getElementById("no-flyers-notice").style.display = "none";
             document.getElementById("approved-flyer-list").style.display = "flex";
         }
 
         // Display flyers
-        approvedFlyers.forEach(flyer => {
-            createFlyerElems(flyer, "approved-flyer-list")
+        flyerList.forEach(flyer => {
+            createFlyerElems(flyer, "approved-flyer-list");
         });
 
         // If you want a global list:   
-        allFlyers = approvedFlyers;
+        allFlyers = flyerList;
     } catch (error) {
         console.error("Error:", error);
     }

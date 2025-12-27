@@ -43,12 +43,13 @@
   cursor: pointer;
 }
 
+.sidebar > .sidebar-links > a.active {
+  background: var(--primary-color);
+  color: #fff;
+}
+
 .sidebar > .sidebar-links > a:hover {
   background: rgba(211, 211, 211, 0.8);
   color: var(--sec-text-color);
 }
 
-.sidebar > .sidebar-links > a.active {
-  background: var(--primary-color);
-  color: #fff;
-}

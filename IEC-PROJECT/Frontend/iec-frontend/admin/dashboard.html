@@ -3,24 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IEC | Admin</title>
 
+    <!-- TOKEN CHECKER -->
+    <script src="/js/api/token_checker.js"></script>
+
     <!-- CSS LINKS -->
-    <link rel="stylesheet" href="../css/colors.css">
-    <link rel="stylesheet" href="../css/component/header.css">
-    <link rel="stylesheet" href="../css/component/sidebar.css">
-    
     <link rel="stylesheet" href="../css/admin/dashboard.css">
+
 </head>
 
 <body>
     <header class="header">
         <div class="title-box">
-            <!-- <div id="menu-icon" class="menu-icon">
+            <div id="menu-icon" class="menu-icon">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div> -->
+            </div>
+            
             <div class="logo">IEC</div>
             <p>
                 Automated <br>
@@ -31,12 +33,12 @@
 
         <!-- NAV LINKS -->
         <nav class="nav-links">
-            <a href="./dashboard.html" class="active">Dashboard</a>
-            <a href="./flyer-management.html">Flyers</a>
-            <a href="./pending-management.html">Pending Flyers</a>
-            <a href="./declined-flyers.html">Declined Flyers</a>
-            <a href="./user-management.html">Users</a>
-            <a href="./feedback-management.html">Feedbacks</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="flyer-management.html">Flyers</a>
+            <a href="pending-management.html">Pending Flyers</a>
+            <a href="declined-flyers.html">Declined Flyers</a>
+            <a href="user-management.html">Users</a>
+            <a href="feedback-management.html">Feedbacks</a>
         </nav>
 
         <!-- AUTH BOX -->
@@ -49,12 +51,12 @@
     <div id="sidebar-overlay" class="sidebar-overlay"></div>
     <aside id="sidebar" class="sidebar">
         <nav class="sidebar-links">
-            <a href="./dashboard.html" class="active">Dashboard</a>
-            <a href="./flyer-management.html">Flyers</a>
-            <a href="./pending-management.html">Pending Flyers</a>
-            <a href="./declined-flyers.html">Declined Flyers</a>
-            <a href="./user-management.html">Users</a>
-            <a href="./feedback-management.html">Feedbacks</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="flyer-management.html">Flyers</a>
+            <a href="pending-management.html">Pending Flyers</a>
+            <a href="declined-flyers.html">Declined Flyers</a>
+            <a href="user-management.html">Users</a>
+            <a href="feedback-management.html">Feedbacks</a>
         </nav>
     </aside>
 
@@ -73,10 +75,10 @@
                 <label>Category</label>
                 <select name="category" id="category">
                     <option value="">-- Select a category --</option>
-                    <option value="nature preservation">Nature Preservation</option>
-                    <option value="disaster preparedness">Disaster Preparedness</option>
-                    <option value="climate policy">Climate Policy</option>
-                    <option value="awareness and education">Awareness &amp; Education</option>
+                    <option value="Nature Preservation">Nature Preservation</option>
+                    <option value="Disaster Preparedness">Disaster Preparedness</option>
+                    <option value="Climate Policy">Climate Policy</option>
+                    <option value="Awareness and Education">Awareness &amp; Education</option>
                 </select>
 
                 <!-- FLYER TITLE -->
@@ -85,12 +87,7 @@
 
                 <!-- FLYER DESCRIPTION -->
                 <label>Descriptions</label>
-                <input type="text" name="description" id="description" placeholder="Enter description">
-
-                <div class="flyer-action-box">
-                    <button class="addDescBtn add-btn" id="addDesc">Add Description</button>
-                    <button class="livePreviewBtn" id="previewBtn">Live Preview</button>
-                </div>
+                <textarea name="description" id="description" placeholder="Enter description"></textarea>
 
                 <div class="post-btn-box">
                     <button class="postBtn" id="postBtn">Post Flyer</button>
@@ -99,12 +96,12 @@
 
             <!-- RIGHT COLUMN: Live preview -->
             <div class="right">
-                <div class="panel preview">
+                <div class="preview">
                     <h3>Live Preview</h3>
                     <div id="livePreview" class="livePreview">
                         <div class="images"></div>
-                        <div class="pvCategory"></div>
                         <div id="pvTitle"></div>
+                        <div class="pvCategory"></div>
                         <div id="pvDesc"></div>
                     </div>
                 </div>
@@ -124,7 +121,7 @@
                     <p id="totalFlyers">0</p>
                 </div>
 
-                <div class="stat-card highlight">
+                <div class="stat-card">
                     <h3>Pending Flyers</h3>
                     <p id="pendingCount">0</p>
                 </div>
@@ -152,7 +149,7 @@
                             <th>Email</th>
                             <th>Role</th>
                             <th>Date Registered</th>
-                            <th>Actions</th>
+                            <th style="text-decoration: line-through;">Actions</th>
                         </tr>
                     </thead>
 
@@ -165,9 +162,9 @@
         </section>
     </div>
 
-
+    <scrip src="../js/components/header.js"></script>
     <script type="module" src="../js/admin/dashboard.js"></script>
-    <script type="module" src="../js/faculty/flyerCreator.js"></script>
+    <script type="module" src="../js/admin/flyerCreator.js"></script>
 </body>
 
 </html>

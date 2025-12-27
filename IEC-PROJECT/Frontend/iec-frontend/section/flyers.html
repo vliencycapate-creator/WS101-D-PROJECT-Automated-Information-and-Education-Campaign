@@ -7,12 +7,8 @@
     <title>IEC - UEP</title>
 
     <!-- CSS LINK -->
-    <link rel="stylesheet" href="../css/colors.css">
-    <link rel="stylesheet" href="../css/component/header.css">
-    <link rel="stylesheet" href="../css/component/sidebar.css">
-    <link rel="stylesheet" href="../css/component/footer.css">
     <link rel="stylesheet" href="../css/section/flyers.css">
-    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../js/section/popFlyer.css">
 </head>
 
 <body>
@@ -65,10 +61,10 @@
                 <div class="search-bar-container">
                     <select name="category" id="category">
                         <option value="all">All</option>
-                        <option value="nature preservation">Nature Preservation</option>
-                        <option value="disaster preparedness">Disaster Preparedness</option>
-                        <option value="climate policy">Climate Policy</option>
-                        <option value="awareness and education">Awareness &amp; Education</option>
+                        <option value="Nature Preservation">Nature Preservation</option>
+                        <option value="Disaster Preparedness">Disaster Preparedness</option>
+                        <option value="Climate Policy">Climate Policy</option>
+                        <option value="Awareness And Education">Awareness &amp; Education</option>
                     </select>
                     <input type="text" name="search" id="search-bar" placeholder="Search">
                     <button id="search-btn">Search</button>
@@ -78,6 +74,7 @@
                 <div id="no-flyers-notice" class="no-flyers-notice">
                     <h2>No Available Approved Flyers</h2>
                 </div>
+                <div id="fullview-flyer" class="fullview-flyer"></div>
                 <div id="flyer-list" class="flyer-list"></div>
             </div>
         </section>

@@ -1,30 +1,49 @@
-import { apiGetAuth } from "../api/api.js";
+import { apiDelete, apiGetAuth, apiGetAuthPost, apiLogout } from "../api/api.js";
 
 async function fetchFlyers() {
     try {
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
 
-        if (!token) {
-            alert("No token found — redirecting to login...");
-            window.location.href = "/index.html";
-            return;
-        }
+        // if (!token) {
+        //     alert("No token found — redirecting to login...");
+        //     window.location.href = "/index.html";
+        //     return;
+        // }
 
         const flyers = await apiGetAuth("flyers");
-        const users = await apiGetAuth("users");
 
         // Handle invalid token or expired token
         if (flyers.status === 401) {
             alert("Session expired. Please login again.");
-            localStorage.removeItem("token");
-            window.location.href = "/index.html";
-            return;
+            try {
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                    alert("No token found — redirecting to login...");
+                    window.location.href = "/index.html";
+                    return;
+                }
+
+                // const users = await response.json();
+                const response = apiLogout("logout"); // GET /users
+
+                // Handle invalid token or expired token
+                if (response.status === 401) {
+                    alert("Session expired. Please login again.");
+                    localStorage.removeItem("token");
+                    window.location.href = "/index.html";
+                    return;
+                }
+
+                localStorage.removeItem("token");
+                window.location.href = "/index.html";
+            } catch (error) {
+                console.error("Fetch users error:", error);
+            }
         }
 
         document.getElementById("totalFlyers").textContent = flyers.size;
-        // document.getElementById('pendingCount').textContent = 
-        document.getElementById("userCount").textContent = users.size;
-        
+
     } catch (error) {
         console.error("Error:", error);
     }
@@ -33,13 +52,13 @@ async function fetchFlyers() {
 // FETCH ALL USERS
 async function fetchUsers() {
     try {
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
 
-        if (!token) {
-            alert("No token found — redirecting to login...");
-            window.location.href = "/index.html";
-            return;
-        }
+        // if (!token) {
+        //     alert("No token found — redirecting to login...");
+        //     window.location.href = "/index.html";
+        //     return;
+        // }
 
         // const users = await response.json();
         const users = await apiGetAuth("users"); // GET /users
@@ -47,22 +66,47 @@ async function fetchUsers() {
         // Handle invalid token or expired token
         if (users.status === 401) {
             alert("Session expired. Please login again.");
-            localStorage.removeItem("token");
-            window.location.href = "/index.html";
-            return;
+            try {
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                    alert("No token found — redirecting to login...");
+                    window.location.href = "/index.html";
+                    return;
+                }
+
+                // const users = await response.json();
+                const response = apiLogout("logout"); // GET /users
+
+                // Handle invalid token or expired token
+                if (response.status === 401) {
+                    alert("Session expired. Please login again.");
+                    localStorage.removeItem("token");
+                    window.location.href = "/index.html";
+                    return;
+                }
+
+                localStorage.removeItem("token");
+                window.location.href = "/index.html";
+            } catch (error) {
+                console.error("Fetch users error:", error);
+            }
         }
 
         const allUsers = users.data || [];
+
+        document.getElementById("userCount").textContent = users.size;
 
         const tableBody = document.getElementById("userTable");
         tableBody.innerHTML = ""; // clear table rows
 
         // Render all users
         allUsers.forEach(user => {
-            if (user.role === "faculty") {
+            if (user.role[0] === "faculty") {
                 createUserElem(user);
             }
         });
+
     } catch (error) {
         console.error("Fetch users error:", error);
     }
@@ -99,7 +143,21 @@ function createUserElem(user) {
     const delBtn = document.createElement("button");
     delBtn.className = "deleteBtn";
     delBtn.textContent = "Delete";
-    delBtn.onclick = () => deleteUser(user.id);
+    delBtn.addEventListener("click", async () => {
+        const confirmDelete = confirm("Are you sure you want to delete this user?");
+        if (!confirmDelete) return { cancelled: true };
+
+        const result = await apiDelete(`users?id=${user.id}`);
+
+        if (!result || result.cancelled) return;
+
+        if (result.success === true || result.status === 200) {
+            alert(result.message || "User deleted successfully!");
+            window.location.reload();
+        } else {
+            alert(result.message || "Failed to delete user.");
+        }
+    });
 
     tdActions.appendChild(editBtn);
     tdActions.appendChild(delBtn);
@@ -121,9 +179,57 @@ document.getElementById('addFlyer').onclick = () => {
 
 // LOGOUT
 document.getElementById("logoutButton").onclick = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/index.html";
+
+    try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            alert("No token found — redirecting to login...");
+            window.location.href = "/index.html";
+            return;
+        }
+
+        // const users = await response.json();
+        const response = apiLogout("logout"); // GET /users
+
+        // Handle invalid token or expired token
+        if (response.status === 401) {
+            alert("Session expired. Please login again.");
+            localStorage.removeItem("token");
+            window.location.href = "/index.html";
+            return;
+        }
+
+        localStorage.removeItem("token");
+        window.location.href = "/index.html";
+    } catch (error) {
+        console.error("Fetch users error:", error);
+    }
 };
+
+// Form Submission (Create or Update)
+const flyerForm = document.querySelector('#flyer-creator form');
+if (flyerForm) {
+    flyerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(flyerForm);
+        const id = flyerForm.dataset.id;
+
+        let result;
+        if (id) {
+            // Update existing flyer
+            formData.append("_method", "PUT"); // Method spoofing for file upload updates
+            result = await apiUpdate(`myflyers/${id}`, formData);
+            alert(result.message || "Updated successful");
+            window.location.reload();
+        } else {
+            // Create new flyer
+            result = await apiGetAuthPost("myflyers", formData);
+            alert(result.message || "Created successful");
+            window.location.reload();
+        }
+    });
+}
 
 fetchFlyers();
 fetchUsers();
