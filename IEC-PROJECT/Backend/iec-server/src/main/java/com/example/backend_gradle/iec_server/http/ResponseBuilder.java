@@ -11,12 +11,16 @@ import java.time.LocalDateTime;
 
 public class ResponseBuilder {
 
+    public static <T> ResponseEntity<@NonNull ApiResponse<T>> success(String message, T data, long size) {
+        return ResponseEntity.ok(new ApiResponse<>(true, message, 200, data, size, new Meta(LocalDateTime.now())));
+    }
+
     public static <T> ResponseEntity<@NonNull ApiResponse<T>> success(String message, T data) {
-        return ResponseEntity.ok(new ApiResponse<>(true, message, 200, data, new Meta(LocalDateTime.now())));
+        return ResponseEntity.ok(new ApiResponse<>(true, message, 200, data, 1, new Meta(LocalDateTime.now())));
     }
 
     public static <T> ResponseEntity<@NonNull ApiResponse<T>> created(String message) {
-        return new ResponseEntity<>(new ApiResponse<>(true, message, 201, null, new Meta(LocalDateTime.now())), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse<>(true, message, 201, null, 1,new Meta(LocalDateTime.now())), HttpStatus.CREATED);
     }
 
 }

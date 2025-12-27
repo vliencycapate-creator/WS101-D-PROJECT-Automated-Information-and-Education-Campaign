@@ -71,7 +71,7 @@ public class UserService {
                 .map(userMapper::toDto)
                 .toList();
         ApiAssert.notFoundIf(users.isEmpty(), "No users found");
-        return ResponseBuilder.success("Users fetched successful", users);
+        return ResponseBuilder.success("Users fetched successful", users, users.size());
     }
 
 }

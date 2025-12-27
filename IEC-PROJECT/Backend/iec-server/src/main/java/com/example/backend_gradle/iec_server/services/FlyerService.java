@@ -44,7 +44,7 @@ public class FlyerService {
                     return flyerDto;
                 })
                 .toList();
-        return ResponseBuilder.success("Flyers fetch successful", flyersDto);
+        return ResponseBuilder.success("Flyers fetch successful", flyersDto, flyersDto.size());
     }
 
     public ResponseEntity<?> getFlyerById(Long id, UserDto userDto) {
@@ -74,7 +74,7 @@ public class FlyerService {
                     return flyerDto;
                 })
                 .toList();
-        return ResponseBuilder.success("Flyers fetch successful", flyersDto);
+        return ResponseBuilder.success("Flyers fetch successful", flyersDto, flyersDto.size());
     }
 
     // Reuse in mutation
