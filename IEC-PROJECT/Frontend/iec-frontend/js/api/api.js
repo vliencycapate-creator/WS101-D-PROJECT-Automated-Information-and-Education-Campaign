@@ -1,5 +1,6 @@
 // Base URL of your backend
-const API_BASE = "http://192.168.68.51/iec/myapi/v1";
+// const API_BASE = "http://192.168.68.51/iec/myapi/v1";
+const API_BASE = "http://192.168.68.51:8080/iec-server/api/v1";
 // const API_BASE = "http://192.168.68.52/iec-server/public/index.php";
 // const API_BASE = "http://192.168.68.50/my_websites/Backends/iec-server-v-1.3/public/index.php";
 
@@ -142,18 +143,22 @@ export async function apiDeclineFlyer(endpoint) {
     const confirmDecline = confirm("Are you sure you want to decline this flyer?");
     if (!confirmDecline) return { cancelled: true };
 
+    
+    const formData = new FormData();
+    formData.append("status", "declined");
+
     try {
         const token = localStorage.getItem("token");
 
         const response = await fetch(`${API_BASE}/${endpoint}`, {
             method: "PUT",
             headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({
-                status: "declined"
-            })
+            // body: JSON.stringify({
+            //     status: "declined"
+            // })
+            body: formData
         });
 
         const result = await response.json();
@@ -171,6 +176,9 @@ export async function apiApproveFlyer(endpoint) {
     const confirmDecline = confirm("Are you sure you want to approved this flyer?");
     if (!confirmDecline) return { cancelled: true };
 
+    const formData = new FormData();
+    formData.append("status", "approved");
+
     try {
         const token = localStorage.getItem("token");
 
@@ -179,9 +187,10 @@ export async function apiApproveFlyer(endpoint) {
             headers: {
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({
-                status: "approved"
-            })
+            // body: JSON.stringify({
+            //     status: "approved"
+            // })
+            body: formData
         });
 
         const result = await response.json();

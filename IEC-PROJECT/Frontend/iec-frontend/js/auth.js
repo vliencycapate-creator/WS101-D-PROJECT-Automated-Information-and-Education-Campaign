@@ -48,7 +48,7 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
 
         setTimeout(() => {
             closeAuth();
-            if (currUser.role[0] === "admin") {
+            if (currUser.role === "admin") {
                 window.location.href = "/admin/dashboard.html";
             } else {
                 window.location.href = "/faculty/dashboard.html";

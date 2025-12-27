@@ -209,24 +209,24 @@ export function createFlyerElems(flyerData, listId) {
         });
 
 
-        const declineBtn = document.createElement('button');
-        declineBtn.id = "cancel-btn";
-        declineBtn.textContent = "Cancel";
+        // const declineBtn = document.createElement('button');
+        // declineBtn.id = "cancel-btn";
+        // declineBtn.textContent = "Cancel";
 
-        declineBtn.addEventListener("click", async () => {
-            const result = await apiDeclineFlyer(`flyers/${flyerData.id}`);
+        // declineBtn.addEventListener("click", async () => {
+        //     const result = await apiDeclineFlyer(`flyers/${flyerData.id}`);
 
-            if (!result || result.cancelled) return;
+        //     if (!result || result.cancelled) return;
 
-            if (result.success === true) {
-                alert(result.message || "Flyer declined successfully!");
-            } else {
-                alert(result.message || "Failed to decline flyer.");
-            }
-        });
+        //     if (result.success === true) {
+        //         alert(result.message || "Flyer declined successfully!");
+        //     } else {
+        //         alert(result.message || "Failed to decline flyer.");
+        //     }
+        // });
 
         actionBox.appendChild(updateBtn);
-        actionBox.appendChild(declineBtn);
+        // actionBox.appendChild(declineBtn);
         cardWrapper.appendChild(actionBox);
     }
     else if (flyerData.record.status === "declined") {
