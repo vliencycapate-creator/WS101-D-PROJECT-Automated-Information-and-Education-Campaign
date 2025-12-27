@@ -1,6 +1,7 @@
 // Base URL of your backend
 // const API_BASE = "http://192.168.68.51/iec/myapi/v1";
-const API_BASE = "http://192.168.68.51:8080/iec-server/api/v1";
+// const API_BASE = "http://192.168.68.51:8080/iec-server/api/v1";
+const API_BASE = "https://iec-api.onrender.com/iec-server/api/v1";
 // const API_BASE = "http://192.168.68.52/iec-server/public/index.php";
 // const API_BASE = "http://192.168.68.50/my_websites/Backends/iec-server-v-1.3/public/index.php";
 
